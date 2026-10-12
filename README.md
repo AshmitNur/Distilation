@@ -62,6 +62,9 @@ Bangla Distill/
 │   ├── tokenizer.json
 │   ├── tokenizer_config.json
 │   └── TRAINING_INFO.txt
+├── train_bangla_unsloth_kaggle.ipynb   # ⚡ Fast Unsloth SFT + DPO training on Kaggle GPU
+├── run_bangla_student_unsloth.ipynb    # ⚡ Unsloth accelerated inference runner on Kaggle
+├── train_unsloth_kaggle.py             # Standalone Unsloth training script
 ├── ui/                                 # FastAPI + HTML5 Interactive Chat Console
 │   ├── app.py                          # Backend API & inference engine
 │   ├── launch_ui.bat / launch_ui.ps1
@@ -127,6 +130,20 @@ Open your browser at `http://127.0.0.1:8000`.
 | :--- | :--- | :--- |
 | **বাংলাদেশের ইতিহাস ও মুক্তিযুদ্ধ** | Mixed language tokens, grammatical fragmentation | Coherent Bengali text, correct historical terminology |
 | **কৃত্রিম বুদ্ধিমত্তা কী ও এর কাজ** | Incoherent rambling, high perplexity | Clear definition, functional explanation in formal Bengali |
+
+---
+
+## ⚡ Training on Kaggle with Unsloth (Recommended)
+
+To retrain the student model and run the DPO reinforcement stage for free using Kaggle's GPU:
+
+1. **Go to Kaggle Notebooks:** Create a new notebook on [kaggle.com/code](https://www.kaggle.com/code).
+2. **Import Notebook:** Click `File` ➔ `Import Notebook` ➔ Upload [`train_bangla_unsloth_kaggle.ipynb`](file:///d:/Bangla%20Distill/train_bangla_unsloth_kaggle.ipynb).
+3. **Enable GPU & Internet:**
+   - On the right sidebar, open **Settings (⚙️)**.
+   - Set **Accelerator** to **GPU P100** or **GPU T4 x2**.
+   - Set **Internet** to **On**.
+4. **Run All Cells:** The notebook automatically fetches `train_chat.jsonl` and `val_chat.jsonl`, performs 4-bit Unsloth QLoRA SFT training, runs DPO preference alignment, and packages your adapter into a downloadable zip file in `/kaggle/working/`.
 
 ---
 
