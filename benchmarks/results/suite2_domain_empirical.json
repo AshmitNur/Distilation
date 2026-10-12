@@ -1,0 +1,361 @@
+{
+  "timestamp": "2026-10-12 19:03:42",
+  "base_results": [
+    {
+      "test_case": {
+        "id": "domain_1",
+        "domain": "History & Liberation War",
+        "bengali_domain": "ইতিহাস ও মুক্তিযুদ্ধ",
+        "prompt": "বাংলাদেশের ইতিহাস ও ১৯৭১ সালের মহান মুক্তিযুদ্ধ সম্পর্কে বিস্তারিত লিখুন।",
+        "expected_topics": [
+          "১৯৭১",
+          "মুক্তিযুদ্ধ",
+          "স্বাধীনতা",
+          "বাংলাদেশ",
+          "বঙ্গবন্ধু",
+          "শহীদ"
+        ]
+      },
+      "generated_text": "মহান মুক্তিযুদ্ধ, জয় আছে! আমরা আপনার বাংলাদেশের ইতিহাসে অন্যান্য গণ্ডগুলি বিস্তারিত করব।\n\n1. মহান মুক্তিযুদ্ধের মধ্যে আপনার শেষ চিন্তা:\n   - মহান মুক্তিযুদ্ধের মধ্যে আপনার শেষ",
+      "elapsed_seconds": 9.6,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 72.0,
+        "has_broken_glyphs": false,
+        "word_count": 25
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 2.3,
+        "overall": 3.6,
+        "matched_topics": [
+          "মুক্তিযুদ্ধ",
+          "বাংলাদেশ"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_2",
+        "domain": "Science & Artificial Intelligence",
+        "bengali_domain": "বিজ্ঞান ও কৃত্রিম বুদ্ধিমত্তা",
+        "prompt": "কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence) কী এবং এটি কীভাবে আধুনিক বিশ্বে কাজ করে?",
+        "expected_topics": [
+          "কৃত্রিম বুদ্ধিমত্তা",
+          "মেশিন লার্নিং",
+          "প্রযুক্তি",
+          "কম্পিউটার",
+          "অ্যালগরিদম",
+          "ডেটা"
+        ]
+      },
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা, এই অ্যালগোড়া হওয়ার প্রধান প্রতিটি বিশ্বাসের ফলে আধুনিক বিশ্বের কাজ করে। এছাড়াও এটি একটি গুরুত্বপূর্ণ ও প্রকাশিত সম্পর্কে চাই।\n\n1. আধুনিক বিশ্বের ক",
+      "elapsed_seconds": 7.63,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 92.0,
+        "has_broken_glyphs": false,
+        "word_count": 25
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 1.7,
+        "overall": 3.4,
+        "matched_topics": [
+          "কৃত্রিম বুদ্ধিমত্তা"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_3",
+        "domain": "Geography, Ecology & Wildlife",
+        "bengali_domain": "ভূগোল ও সুন্দরবনের জীববৈচিত্র্য",
+        "prompt": "সুন্দরবনের পরিবেশগত গুরুত্ব এবং এর রয়েল বেঙ্গল টাইগার সংরক্ষণের প্রয়োজনীয়তা ব্যাখ্যা করুন।",
+        "expected_topics": [
+          "সুন্দরবন",
+          "ম্যানগ্রোভ",
+          "বাঘ",
+          "রয়েল বেঙ্গল টাইগার",
+          "বন",
+          "প্রকৃতি"
+        ]
+      },
+      "generated_text": "এই অনুষ্ঠিত হল আমাদের মধ্যে একটি শিল্প করছি, যা বিশ্লেষণ করে এবং সুন্দরবনের পরিবেশগত গুরুত্ব ও রয়েল বেঙ্গল টাইগার সংরক্ষণের প্রয়োজনীয়তা ব্যাখ্যা করা হয়। আমরা এই সু",
+      "elapsed_seconds": 7.81,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 96.29629629629629,
+        "has_broken_glyphs": false,
+        "word_count": 27
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 3.0,
+        "overall": 3.9,
+        "matched_topics": [
+          "সুন্দরবন",
+          "রয়েল বেঙ্গল টাইগার",
+          "বন"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_4",
+        "domain": "Education, Health & Productivity",
+        "bengali_domain": "শিক্ষা, স্বাস্থ্য ও দৈনন্দিন নিয়ম",
+        "prompt": "একজন শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য তিনটি অত্যন্ত প্রয়োজনীয় নিয়ম কী কী?",
+        "expected_topics": [
+          "শিক্ষার্থী",
+          "স্বাস্থ্য",
+          "ঘুম",
+          "ব্যায়াম",
+          "মনোযোগ",
+          "নিয়মানুবর্তিতা"
+        ]
+      },
+      "generated_text": "1. গণিত পদক্ষেপ: আপনি এই সুস্থ শরীরের সৃষ্টি করছেন এবং তাই আপনি গণিত পদক্ষেপের চেষ্টা করছেন। তাহলে আপনি সুস্থ শরীরের প্রয়োজনীয় নিয়ম করতে পারেন।\n\n2. সাধারণ প্রয়োজনী",
+      "elapsed_seconds": 7.71,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 81.48148148148148,
+        "has_broken_glyphs": false,
+        "word_count": 27
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 1.0,
+        "overall": 3.1,
+        "matched_topics": []
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_5",
+        "domain": "Literature & Linguistic Culture",
+        "bengali_domain": "সাহিত্য ও মাতৃভাষা",
+        "prompt": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর এবং বাংলা সাহিত্যে তাঁর অবদান সম্পর্কে আলোচনা করুন।",
+        "expected_topics": [
+          "রবীন্দ্রনাথ",
+          "ঠাকুর",
+          "গীতাঞ্জলি",
+          "নোবেল",
+          "কবিতা",
+          "সাহিত্য"
+        ]
+      },
+      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ (Bhadra) এবং বাংলা সাহিত্যের অবদান সম্পর্কে আলোচনা করা হয়েছে। এই মধ্যে সম্পূর্ণ জীবন, সম্মান, গৌরব ও প্রতিষ্ঠা এবং সম্পূর্ণ সাধারণ প্রতিষ্ঠা প্রতিষ্ঠা কর",
+      "elapsed_seconds": 7.53,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 95.8904109589041,
+        "unique_ngram_ratio": 84.0,
+        "has_broken_glyphs": false,
+        "word_count": 25
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 2.3,
+        "overall": 3.6,
+        "matched_topics": [
+          "রবীন্দ্রনাথ",
+          "সাহিত্য"
+        ]
+      }
+    }
+  ],
+  "student_results": [
+    {
+      "test_case": {
+        "id": "domain_1",
+        "domain": "History & Liberation War",
+        "bengali_domain": "ইতিহাস ও মুক্তিযুদ্ধ",
+        "prompt": "বাংলাদেশের ইতিহাস ও ১৯৭১ সালের মহান মুক্তিযুদ্ধ সম্পর্কে বিস্তারিত লিখুন।",
+        "expected_topics": [
+          "১৯৭১",
+          "মুক্তিযুদ্ধ",
+          "স্বাধীনতা",
+          "বাংলাদেশ",
+          "বঙ্গবন্ধু",
+          "শহীদ"
+        ]
+      },
+      "generated_text": "১৯৭১ সালের মহান মুক্তিযুদ্ধ বাংলাদেশের জাতীয় আন্দোলনের অন্যতম গুরুত্বপূর্ণ অঙ্গ। এই মুক্তিযুদ্ধে বাংলাদেশের স্থাপত্য, শিল্প, সংস্কৃতি এবং রাজনৈতিক স্থাপত্যের প্র",
+      "elapsed_seconds": 14.8,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 95.0,
+        "has_broken_glyphs": false,
+        "word_count": 20
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 3.0,
+        "overall": 3.9,
+        "matched_topics": [
+          "১৯৭১",
+          "মুক্তিযুদ্ধ",
+          "বাংলাদেশ"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_2",
+        "domain": "Science & Artificial Intelligence",
+        "bengali_domain": "বিজ্ঞান ও কৃত্রিম বুদ্ধিমত্তা",
+        "prompt": "কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence) কী এবং এটি কীভাবে আধুনিক বিশ্বে কাজ করে?",
+        "expected_topics": [
+          "কৃত্রিম বুদ্ধিমত্তা",
+          "মেশিন লার্নিং",
+          "প্রযুক্তি",
+          "কম্পিউটার",
+          "অ্যালগরিদম",
+          "ডেটা"
+        ]
+      },
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা হলো বৈজ্ঞানিক বৈশিষ্ট্য ও গণিতের অন্যতম প্রয়োগফল। এই ফলটি বৈজ্ঞানিক বৈশিষ্ট্যের সাথে ব্যবহৃত এবং গণিতের সাথে ব্যবহৃত হয়। কৃত্রিম বুদ্ধিমত্তা ব্�",
+      "elapsed_seconds": 15.61,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 73.91304347826086,
+        "has_broken_glyphs": false,
+        "word_count": 23
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 1.7,
+        "overall": 3.4,
+        "matched_topics": [
+          "কৃত্রিম বুদ্ধিমত্তা"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_3",
+        "domain": "Geography, Ecology & Wildlife",
+        "bengali_domain": "ভূগোল ও সুন্দরবনের জীববৈচিত্র্য",
+        "prompt": "সুন্দরবনের পরিবেশগত গুরুত্ব এবং এর রয়েল বেঙ্গল টাইগার সংরক্ষণের প্রয়োজনীয়তা ব্যাখ্যা করুন।",
+        "expected_topics": [
+          "সুন্দরবন",
+          "ম্যানগ্রোভ",
+          "বাঘ",
+          "রয়েল বেঙ্গল টাইগার",
+          "বন",
+          "প্রকৃতি"
+        ]
+      },
+      "generated_text": "সুন্দরবনের পরিবেশগত গুরুত্ব হলো সুন্দরবনের মধ্যে অনেক প্রাচীন ও জনপ্রিয় পদার্থ আছে।  এই পদার্থগুলো সম্পূর্ণ স্থানে সুন্দরবনের মধ্যে অনেক প্রাচীন ও জনপ্রিয় পদার্থ আছে",
+      "elapsed_seconds": 15.71,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 66.66666666666666,
+        "has_broken_glyphs": false,
+        "word_count": 24
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 2.3,
+        "overall": 3.6,
+        "matched_topics": [
+          "সুন্দরবন",
+          "বন"
+        ]
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_4",
+        "domain": "Education, Health & Productivity",
+        "bengali_domain": "শিক্ষা, স্বাস্থ্য ও দৈনন্দিন নিয়ম",
+        "prompt": "একজন শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য তিনটি অত্যন্ত প্রয়োজনীয় নিয়ম কী কী?",
+        "expected_topics": [
+          "শিক্ষার্থী",
+          "স্বাস্থ্য",
+          "ঘুম",
+          "ব্যায়াম",
+          "মনোযোগ",
+          "নিয়মানুবর্তিতা"
+        ]
+      },
+      "generated_text": "অধ্যায়না, গবেষণা, শিক্ষা, সম্পাদনা, আইন, চিন্তা, স্বাধীনতা ইত্যাদি বিষয়ের উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের",
+      "elapsed_seconds": 15.69,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 55.00000000000001,
+        "has_broken_glyphs": false,
+        "word_count": 20
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 1.0,
+        "overall": 3.1,
+        "matched_topics": []
+      }
+    },
+    {
+      "test_case": {
+        "id": "domain_5",
+        "domain": "Literature & Linguistic Culture",
+        "bengali_domain": "সাহিত্য ও মাতৃভাষা",
+        "prompt": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর এবং বাংলা সাহিত্যে তাঁর অবদান সম্পর্কে আলোচনা করুন।",
+        "expected_topics": [
+          "রবীন্দ্রনাথ",
+          "ঠাকুর",
+          "গীতাঞ্জলি",
+          "নোবেল",
+          "কবিতা",
+          "সাহিত্য"
+        ]
+      },
+      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর (১৮৩৫ – ১৮৮২) ছিলেন ইতালীয় গণের জন্মস্থান ও শিক্ষা প্রতিষ্ঠানের প্রধান ব্যক্তিত্ব। তিনি ইতালীয় সঙ্গীত প্রতিষ্ঠাতা এবং ইতালীয় গণের জন্ম",
+      "elapsed_seconds": 14.58,
+      "tokens_generated": 180,
+      "orthography_stats": {
+        "bengali_char_ratio": 100.0,
+        "unique_ngram_ratio": 86.95652173913044,
+        "has_broken_glyphs": false,
+        "word_count": 23
+      },
+      "scores": {
+        "fluency": 4.2,
+        "orthography": 4.9,
+        "factuality": 2.3,
+        "overall": 3.6,
+        "matched_topics": [
+          "রবীন্দ্রনাথ",
+          "ঠাকুর"
+        ]
+      }
+    }
+  ],
+  "averages": {
+    "base_overall": 3.5200000000000005,
+    "student_overall": 3.5200000000000005,
+    "base_fluency": 4.2,
+    "student_fluency": 4.2,
+    "base_orthography": 4.9,
+    "student_orthography": 4.9,
+    "base_factuality": 2.06,
+    "student_factuality": 2.06
+  }
+}

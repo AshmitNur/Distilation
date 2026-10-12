@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-10-12 19:04:59",
+  "hardware": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "total_vram_gb": 7.99560546875,
+  "static_vram_mb": 975.8857421875,
+  "adapter_size_mb": 33.60472106933594,
+  "load_time_seconds": 3.8105032444000244,
+  "ttft_results": [
+    {
+      "prompt_tokens": 16,
+      "ttft_ms": 90.42
+    },
+    {
+      "prompt_tokens": 64,
+      "ttft_ms": 100.73
+    },
+    {
+      "prompt_tokens": 128,
+      "ttft_ms": 83.71
+    },
+    {
+      "prompt_tokens": 256,
+      "ttft_ms": 78.48
+    }
+  ],
+  "throughput_results": [
+    {
+      "target_tokens": 32,
+      "actual_tokens": 32,
+      "latency_seconds": 2.479,
+      "tokens_per_second": 12.9,
+      "peak_vram_mb": 992.4
+    },
+    {
+      "target_tokens": 64,
+      "actual_tokens": 64,
+      "latency_seconds": 4.958,
+      "tokens_per_second": 12.9,
+      "peak_vram_mb": 992.8
+    },
+    {
+      "target_tokens": 128,
+      "actual_tokens": 128,
+      "latency_seconds": 9.505,
+      "tokens_per_second": 13.5,
+      "peak_vram_mb": 993.6
+    },
+    {
+      "target_tokens": 256,
+      "actual_tokens": 256,
+      "latency_seconds": 20.805,
+      "tokens_per_second": 12.3,
+      "peak_vram_mb": 995.1
+    }
+  ],
+  "teacher_specs": {
+    "Gemma-2-9B-IT": {
+      "params": "9.2B",
+      "weights_gb": 18.4,
+      "min_vram_fp16": 19.5,
+      "speed_tps": 22.0
+    },
+    "Qwen-3.5-9B": {
+      "params": "9.0B",
+      "weights_gb": 18.0,
+      "min_vram_fp16": 19.0,
+      "speed_tps": 23.5
+    },
+    "Bangla Distill Student": {
+      "params": "0.49B",
+      "weights_gb": 1.05,
+      "adapter_mb": 33.60472106933594,
+      "min_vram_fp16": 0.9530134201049805,
+      "speed_tps": 12.3
+    }
+  }
+}
