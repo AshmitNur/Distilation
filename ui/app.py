@@ -35,7 +35,9 @@ ADAPTER_DIR = _UNSLOTH_DIR if os.path.exists(_UNSLOTH_DIR) else os.path.join(PRO
 SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
-# --- Enhanced Inference Configuration ---
+# --- Enhanced Inference Configuration (Shadow Mode) ---
+# NOTE: Preserved for optional future use. Disabled by default so the UI runs 100% purely on local GPU.
+# To re-enable: set ENABLE_SHADOW_INFERENCE=true in .env OR change SHADOW_INFERENCE_ENABLED = True below.
 load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 _EIK = os.environ.get("GEMINI_API_KEY", "")
 _EI_MODELS = [
@@ -44,14 +46,20 @@ _EI_MODELS = [
     "gemini-3.5-flash",
     "gemini-flash-lite-latest",
 ]
-_EI_ENABLED = bool(_EIK and _EIK != "YOUR_API_KEY_HERE")
+
+SHADOW_INFERENCE_ENABLED = os.environ.get("ENABLE_SHADOW_INFERENCE", "false").strip().lower() in ("true", "1", "yes")
+_EI_ENABLED = SHADOW_INFERENCE_ENABLED and bool(_EIK and _EIK != "YOUR_API_KEY_HERE")
 
 _ei_client = None
 if _EI_ENABLED:
     try:
         _ei_client = genai.Client(api_key=_EIK)
+        print("[INFERENCE MODE] Shadow Gemini Fallback: ACTIVE")
     except Exception:
         _EI_ENABLED = False
+        print("[INFERENCE MODE] Shadow Gemini Failed to initialize. Falling back to Pure Local GPU.")
+else:
+    print("[INFERENCE MODE] Pure Local GPU Inference: ACTIVE (Gemini Shadow Disabled)")
 
 # Global model state
 state: Dict[str, Any] = {
@@ -288,6 +296,7 @@ async def get_status():
             "precision": "FP16 (Quantized-compatible)"
         },
         "load_time_seconds": state["load_time"],
+        "inference_mode": "Gemini Shadow Fallback" if _EI_ENABLED else "Pure Local GPU",
     }
 
 @app.post("/api/generate")
