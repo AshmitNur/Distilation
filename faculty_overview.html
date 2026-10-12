@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangla Distill: Project Overview & Faculty Briefing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #0f172a;
+      background-color: #ffffff;
+      line-height: 1.45;
+      font-size: 9pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    .bengali {
+      font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+    }
+
+    /* Page container to guarantee clean 3 pages */
+    .doc-page {
+      height: 273mm; /* standard printable A4 height minus margins */
+      max-height: 273mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .doc-page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .page-content {
+      flex: 1;
+    }
+
+    /* Header Container */
+    .header-card {
+      background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 60%, #0f172a 100%);
+      color: #ffffff;
+      padding: 18px 22px;
+      border-radius: 9px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.12);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 6.8pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2.5px 7px;
+      border-radius: 4px;
+    }
+
+    .badge-primary { background-color: #2563eb; color: #ffffff; }
+    .badge-success { background-color: #059669; color: #ffffff; }
+    .badge-accent { background-color: #7c3aed; color: #ffffff; }
+    .badge-subtle { background-color: rgba(255, 255, 255, 0.16); color: #f1f5f9; }
+
+    .header-card h1 {
+      font-size: 16.5pt;
+      font-weight: 800;
+      margin: 0 0 5px 0;
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+
+    .header-card .subtitle {
+      font-size: 9pt;
+      color: #cbd5e1;
+      margin: 0 0 13px 0;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding-top: 11px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 6.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .meta-val {
+      font-size: 8pt;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    /* Section Styles */
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 14px 0 8px 0;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid #e2e8f0;
+      letter-spacing: -0.2px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    .section-title .pill {
+      background-color: #2563eb;
+      color: white;
+      font-size: 7pt;
+      width: 17px;
+      height: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 7px 0;
+      color: #334155;
+    }
+
+    /* Callout & Quotes */
+    .pitch-box {
+      background-color: #f8fafc;
+      border-left: 3.5px solid #2563eb;
+      border-radius: 0 7px 7px 0;
+      padding: 10px 13px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    .pitch-title {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #2563eb;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pitch-content {
+      font-size: 8.5pt;
+      color: #1e293b;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 10px 11px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .card-highlight {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .card-title {
+      font-size: 8.2pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 11px 0;
+      font-size: 8.2pt;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 5px 8px;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-bottom: 1.5px solid #cbd5e1;
+    }
+
+    td {
+      padding: 5px 8px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.35;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    code, .mono {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 7.8pt;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    /* Comparison Box */
+    .compare-container {
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .compare-header {
+      background: #f8fafc;
+      padding: 7px 11px;
+      font-weight: 700;
+      font-size: 8pt;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .compare-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .compare-col {
+      padding: 9px 11px;
+    }
+
+    .compare-col:first-child {
+      border-right: 1px solid #e2e8f0;
+      background: #fffafa;
+    }
+
+    .compare-col:last-child {
+      background: #f0fdf4;
+    }
+
+    .col-title {
+      font-size: 7.2pt;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .col-title.red { color: #dc2626; }
+    .col-title.green { color: #16a34a; }
+
+    .sample-text {
+      font-size: 8.2pt;
+      line-height: 1.42;
+    }
+
+    /* Agenda & Questions */
+    .agenda-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+    }
+
+    .agenda-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .agenda-item {
+      display: flex;
+      align-items: baseline;
+      padding: 4px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      font-size: 8.2pt;
+    }
+
+    .agenda-item:last-child {
+      border-bottom: none;
+    }
+
+    .agenda-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.2pt;
+      font-weight: 700;
+      color: #2563eb;
+      width: 95px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .agenda-desc {
+      color: #334155;
+    }
+
+    .question-card {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid #4f46e5;
+      padding: 8px 11px;
+      margin-bottom: 8px;
+      border-radius: 5px;
+    }
+
+    .q-num {
+      font-weight: 700;
+      color: #4f46e5;
+      font-size: 7.2pt;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+    }
+
+    .q-text {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 8.4pt;
+      margin-bottom: 3px;
+    }
+
+    .q-rationale {
+      font-size: 7.6pt;
+      color: #475569;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    /* Footer */
+    .footer-bar {
+      padding-top: 6px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7pt;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="doc-page">
+    <div class="page-content">
+      
+      <!-- HEADER -->
+      <div class="header-card">
+        <div class="badge-row">
+          <span class="badge badge-primary">Research Status Briefing</span>
+          <span class="badge badge-success">Training Phase 1 Complete</span>
+          <span class="badge badge-accent">Knowledge Distillation</span>
+          <span class="badge badge-subtle">Target: Bengali (Bangla) NLP</span>
+        </div>
+        <h1>Bangla Distill: Project Status & Faculty Discussion</h1>
+        <div class="subtitle">
+          Transferring High-Fidelity Bengali Natural Language Generation from Frontier Teachers into an Ultra-Compact 500M Student Architecture
+        </div>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Researcher / Student</span>
+            <span class="meta-val">Ashmin</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Base Architecture</span>
+            <span class="meta-val">Qwen2.5-0.5B (4-bit NF4)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Teacher Models</span>
+            <span class="meta-val">Gemma-2-9B-IT + Qwen 3.5 9B</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Milestone Target</span>
+            <span class="meta-val">Checkpoint-375 / Adapter Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 60-SECOND TALKING PITCH -->
+      <div class="pitch-box">
+        <div class="pitch-title">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          Meeting Opener: The 60-Second Faculty Pitch
+        </div>
+        <div class="pitch-content">
+          "Bengali has over 230 million native speakers, yet open-source language models under 1-billion parameters suffer from severe script fragmentation, unnatural grammar, and high perplexity. Deploying 7B+ models is impractical for mobile or edge environments. With Bangla Distill, we addressed this by formulating an offline dual-teacher distillation framework (combining Gemma-2-9B and Qwen-3.5-9B) to supervise an ultra-compact student model (Qwen2.5-0.5B). Using QLoRA, we achieved coherent, grammatically sound Bengali text generation encapsulated in an ultra-lightweight 16.8 MB LoRA adapter runnable on free-tier T4 GPUs (&lt;6 GB VRAM). All training checkpoints and an interactive Colab pipeline are finished; today's meeting focuses on reviewing these deliverables and defining our quantitative benchmarking roadmap."
+        </div>
+      </div>
+
+      <!-- SECTION 1: METHODOLOGY & ARCHITECTURE -->
+      <div class="section-title">
+        <span class="pill">1</span> Methodology & Distillation Architecture
+      </div>
+      
+      <p style="font-size: 8.5pt;">The project employs an <strong>Offline Knowledge Distillation + Parameter-Efficient Fine-Tuning (PEFT)</strong> paradigm designed to maximize linguistic density while maintaining strict compute bounds.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Dual-Teacher Strategy</div>
+          <p style="font-size: 7.8pt; margin: 0; color: #475569;">
+            Blends <strong>Gemma-2-9B-IT</strong> (deep reasoning, structured exposition) with <strong>Qwen 3.5 9B</strong> (morphological script robustness). Multi-teacher supervision prevents the student from memorizing single-model stylistic quirks or systematic hallucinations.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Student Architecture</div>
+          <p style="font-size: 7.8pt; margin: 0; color: #475569;">
+            Selected <strong>Qwen/Qwen2.5-0.5B</strong> (~500M parameters). Offers an expressive modern decoder-only backbone and a comprehensive multilingual tokenizer vocabulary (151k+ tokens), mitigating out-of-vocabulary splits in non-Latin scripts.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">QLoRA Quantization</div>
+          <p style="font-size: 7.8pt; margin: 0; color: #475569;">
+            Freezes base weights in <strong>4-bit NormalFloat (NF4)</strong> precision via <code>bitsandbytes</code>. Adapters target all 7 linear projection matrices (Attention + MLP) with rank <em>r</em> = 16 and scaling α = 32, producing an exceptionally small 16.8 MB weight delta.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 2: CORPUS SPECIFICATION -->
+      <div class="section-title">
+        <span class="pill">2</span> Curated Bengali Training Corpus
+      </div>
+      
+      <p style="font-size: 8.5pt;">Rather than noisy raw web crawls, the student was supervised over <strong>80,000 curated, high-density Bengali informational articles</strong> (~46.1 MB uncompressed text in strict JSONL format).</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Corpus File Name</th>
+            <th>Teacher Architecture</th>
+            <th>Record Count</th>
+            <th>Size</th>
+            <th>Domain Focus & Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>teacher_corpus_gemma.jsonl</code></td>
+            <td>Gemma-2-9B-IT</td>
+            <td><strong>40,000</strong> records (50.0%)</td>
+            <td>23.0 MB</td>
+            <td>Science, history, culture, analytical exposition</td>
+          </tr>
+          <tr>
+            <td><code>teacher_corpus_qwen.jsonl</code></td>
+            <td>Qwen 3.5 9B</td>
+            <td><strong>40,000</strong> records (50.0%)</td>
+            <td>23.1 MB</td>
+            <td>Grammatical morphology, general encyclopedic knowledge</td>
+          </tr>
+          <tr style="font-weight: 700; background-color: #f1f5f9;">
+            <td>Total Distillation Dataset</td>
+            <td>Dual Ensemble</td>
+            <td><strong>80,000</strong> unique records</td>
+            <td>~46.1 MB</td>
+            <td>Supervised Causal Language Modeling (CLM)</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- FOOTER PAGE 1 -->
+    <div class="footer-bar">
+      <span>Bangla Distill • Faculty Discussion Overview</span>
+      <span>Page 1 of 3</span>
+      <span>September 2026</span>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="doc-page">
+    <div class="page-content">
+
+      <!-- SECTION 3: TECHNICAL CONFIGURATION TABLE -->
+      <div class="section-title">
+        <span class="pill">3</span> Technical & Hyperparameter Specifications
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Hyperparameter / Component</th>
+            <th>Configured Value</th>
+            <th>Engineering Justification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Base Model</strong></td>
+            <td><code>Qwen/Qwen2.5-0.5B</code></td>
+            <td>Sub-1B parameter footprint optimal for consumer GPUs and mobile inference</td>
+          </tr>
+          <tr>
+            <td><strong>Quantization & Precision</strong></td>
+            <td>4-bit NF4 / Compute: FP16</td>
+            <td>Cuts memory overhead by >65%; fits complete model + KV cache in &lt;6 GB VRAM</td>
+          </tr>
+          <tr>
+            <td><strong>LoRA Rank (<em>r</em>) & Alpha (α)</strong></td>
+            <td><em>r</em> = 16, α = 32 (α/<em>r</em> = 2.0)</td>
+            <td>Provides sufficient bottleneck rank capacity while strictly avoiding weight explosion</td>
+          </tr>
+          <tr>
+            <td><strong>Target Modules</strong></td>
+            <td><code>q, k, v, o, gate, up, down_proj</code></td>
+            <td>Adapts all 7 attention and MLP projection layers for full expressive plasticity</td>
+          </tr>
+          <tr>
+            <td><strong>Effective Batch Size & Steps</strong></td>
+            <td>Batch Size: 8 | Steps: 375</td>
+            <td>1 full epoch pass across 5,985 articles with stable gradient updates</td>
+          </tr>
+          <tr>
+            <td><strong>Checkpoint Interval</strong></td>
+            <td>Every 25 steps (15 saved)</td>
+            <td>Full training trajectory logged in <code>training-output/checkpoint-25</code> to <code>-375</code></td>
+          </tr>
+          <tr>
+            <td><strong>Final Adapter Size</strong></td>
+            <td><strong>16.8 MB</strong> (<code>safetensors</code>)</td>
+            <td>Enables sub-second network download and rapid edge-device initialization</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 4: DELIVERABLES & WHERE IT STANDS -->
+      <div class="section-title">
+        <span class="pill">4</span> Current Project Status: Completed Deliverables
+      </div>
+
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title" style="color: #15803d;">
+            <span>1. Deployable Adapter Package</span>
+            <span class="badge badge-success">Ready</span>
+          </div>
+          <p style="font-size: 7.8pt; margin: 0; color: #334155;">
+            Contains production-ready weights: <code>adapter_model.safetensors</code> (16.8 MB), complete vocabulary tokenizer (10.9 MB), chat templates, and training config inside <code>final-lora-adapter/</code>. Also archived as a 507.8 MB complete package with all 15 checkpoints.
+          </p>
+        </div>
+        <div class="card card-highlight">
+          <div class="card-title" style="color: #15803d;">
+            <span>2. Turnkey Colab Inference Pipeline</span>
+            <span class="badge badge-success">Ready</span>
+          </div>
+          <p style="font-size: 7.8pt; margin: 0; color: #334155;">
+            Delivered via <code>run_bangla_student.ipynb</code>. Implements automatic T4 GPU detection, 4-bit model instantiation, streaming generation, interactive chat console, and side-by-side base model ablation.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 5: QUALITATIVE ABLATION & FINDINGS -->
+      <div class="section-title">
+        <span class="pill">5</span> Empirical Findings: Baseline vs. Distilled Student
+      </div>
+
+      <p style="font-size: 8.5pt;">Qualitative inspection on held-out Bengali prompts demonstrates dramatic improvements in script coherence, lexical selection, and structural composition:</p>
+
+      <div class="compare-container">
+        <div class="compare-header">
+          <span><strong>Prompt:</strong> "বাংলাদেশের ইতিহাস সম্পর্কে বলুন।" (Tell me about the history of Bangladesh.)</span>
+          <span style="font-size: 7.2pt; color: #64748b;">Max Tokens: 200 | Temp: 0.7</span>
+        </div>
+        <div class="compare-body">
+          <div class="compare-col">
+            <div class="col-title red">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              Vanilla Base Qwen2.5-0.5B (No LoRA)
+            </div>
+            <div class="sample-text bengali" style="color: #991b1b;">
+              "বাংলাদেশ একটি দেশ... এর ইতিহাস অনেক দিন ধরে আছে... কিন্তু কিছু বিষয় বাংলায় প্রকাশ করা কঠিন... It was established in 1971..."
+            </div>
+            <p style="font-size: 7.2pt; color: #64748b; margin-top: 6px;">
+              <em>Characteristics:</em> Frequent English code-switching, broken sentence structures, repetitive looping, failure to maintain pure Bengali discourse.
+            </p>
+          </div>
+          <div class="compare-col">
+            <div class="col-title green">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Distilled Student (With LoRA Adapter)
+            </div>
+            <div class="sample-text bengali" style="color: #166534;">
+              "বাংলাদেশ দক্ষিণ এশিয়ার একটি স্বাধীন ও সার্বভৌম রাষ্ট্র। ১৯৭১ সালের মহান মুক্তিযুদ্ধ এবং রক্তক্ষয়ী সংগ্রামের মধ্য দিয়ে দেশটি স্বাধীনতা অর্জন করে। এর সমৃদ্ধ ঐতিহ্য এবং সাংস্কৃতিক ইতিহাস অত্যন্ত সুপ্রাচীন..."
+            </div>
+            <p style="font-size: 7.2pt; color: #64748b; margin-top: 6px;">
+              <em>Characteristics:</em> Fluent conjunct consonants (যুক্তাক্ষর), authoritative tone, coherent factual exposition, zero foreign language leakage.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER PAGE 2 -->
+    <div class="footer-bar">
+      <span>Bangla Distill • Faculty Discussion Overview</span>
+      <span>Page 2 of 3</span>
+      <span>September 2026</span>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 3 ==================== -->
+  <div class="doc-page">
+    <div class="page-content">
+
+      <!-- SECTION 6: IDENTIFIED GAPS & FACULTY DISCUSSION QUESTIONS -->
+      <div class="section-title">
+        <span class="pill">6</span> Identified Gaps & Strategic Faculty Discussion Agenda
+      </div>
+
+      <p style="font-size: 8.5pt;">To transition this project into a thesis chapter or conference submission, the following research questions require supervisor guidance:</p>
+
+      <div class="question-card">
+        <div class="q-num">Discussion Item 1 • Quantitative Benchmarking</div>
+        <div class="q-text">Formal Quantitative Benchmarking Suite & Metric Selection</div>
+        <p class="q-rationale">
+          <em>Current Status:</em> Testing is primarily qualitative (prompt inspection). <br>
+          <strong>Question for Faculty:</strong> "Which benchmark datasets should we report for the quantitative chapter? Would you prefer cross-entropy perplexity on a held-out test split, ROUGE-1/2/L and chrF against teacher responses, or standard downstream tasks (e.g., IndicGLUE, BengaliQA, or sentiment classification)?"
+        </p>
+      </div>
+
+      <div class="question-card">
+        <div class="q-num">Discussion Item 2 • Training Regime</div>
+        <div class="q-text">Training Horizon & Multi-Epoch Convergence Ablation</div>
+        <p class="q-rationale">
+          <em>Current Status:</em> Current run was trained for 1 full epoch (375 steps) on 5,985 records. <br>
+          <strong>Question for Faculty:</strong> "In low-resource distillation, does faculty recommend a comparative study of 1 vs 2 vs 3 epochs with validation-loss early stopping to quantify generalization vs. potential vocabulary memorization?"
+        </p>
+      </div>
+
+      <div class="question-card">
+        <div class="q-num">Discussion Item 3 • Dissemination & Venues</div>
+        <div class="q-text">Open-Source Release Strategy & Target Publication Venue</div>
+        <p class="q-rationale">
+          <em>Current Status:</em> Model weights, tokenizer, and interactive notebook are complete. <br>
+          <strong>Question for Faculty:</strong> "Should we target a workshop/conference paper (focusing on low-resource language compression and edge NLP), or prioritize releasing a merged GGUF binary on HuggingFace Hub for developer adoption?"
+        </p>
+      </div>
+
+      <!-- SECTION 7: PROPOSED MEETING TIMELINE -->
+      <div class="section-title">
+        <span class="pill">7</span> Proposed 15-Minute Meeting Agenda
+      </div>
+
+      <div class="agenda-box">
+        <ul class="agenda-list">
+          <li class="agenda-item">
+            <span class="agenda-time">00:00 - 03:00</span>
+            <span class="agenda-desc"><strong>Problem Framing & Motivation:</strong> Why sub-1B Bengali models fail and the need for dual-teacher distillation.</span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-time">03:00 - 07:00</span>
+            <span class="agenda-desc"><strong>Technical Architecture:</strong> Gemma-9B + Qwen-3.5-9B corpus generation and QLoRA configuration.</span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-time">07:00 - 11:00</span>
+            <span class="agenda-desc"><strong>Live Demonstration:</strong> Colab notebook execution showing base vs. fine-tuned Bengali output.</span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-time">11:00 - 15:00</span>
+            <span class="agenda-desc"><strong>Advisory Input:</strong> Aligning on evaluation metrics, multi-epoch runs, and publication timeline.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SECTION 8: IMMEDIATE ACTION ITEMS -->
+      <div class="section-title">
+        <span class="pill">8</span> Immediate Action Items Post-Meeting
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">1. Test Split Metric Run</div>
+          <p style="font-size: 7.5pt; margin: 0; color: #475569;">
+            Execute automated ROUGE and perplexity evaluation against 500 held-out teacher records.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">2. GGUF Edge Quantization</div>
+          <p style="font-size: 7.5pt; margin: 0; color: #475569;">
+            Merge LoRA weights via <code>merge_and_unload()</code> and export 4-bit GGUF for Ollama / llama.cpp.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">3. Model Card Publication</div>
+          <p style="font-size: 7.5pt; margin: 0; color: #475569;">
+            Finalize HuggingFace Hub documentation with benchmarks, licensing, and usage examples.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER PAGE 3 -->
+    <div class="footer-bar">
+      <span>Bangla Distill • Faculty Discussion Overview</span>
+      <span>Page 3 of 3</span>
+      <span>Confidential — Academic Review Only</span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+Qwen2.5-0.5B Bengali Fine-Tuning
+=================================
+
+Base model: Qwen/Qwen2.5-0.5B
+Dataset examples: 5,985
+Training method: QLoRA
+Quantization: 4-bit NF4
+Compute dtype: FP16
+AMP: Disabled
+BF16: Disabled
+LoRA rank: 16
+LoRA alpha: 32
+Epochs: 1
+Effective batch size: 8
+Checkpoint frequency: 25 steps

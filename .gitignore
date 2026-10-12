@@ -1,0 +1,25 @@
+# Environment variables (API keys!)
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Large archives and intermediate training checkpoints (>100MB violates GitHub limits)
+*.zip
+*.tar
+*.tar.gz
+*.pt
+**/training-output/
+checkpoint-*/

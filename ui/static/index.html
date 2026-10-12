@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangla Distill — AI Model Arena & Interactive Playground</title>
+  <meta name="description" content="High-performance evaluation arena and conversational playground for the Bangla Distill student model (Qwen2.5-0.5B with LoRA).">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <div class="logo-group">
+        <div class="logo-icon">🇧🇩</div>
+        <div class="logo-text">
+          <div class="logo-title">Bangla Distill <span class="badge badge-accent">v1.0</span></div>
+          <div class="logo-sub">Knowledge Distillation • Qwen2.5-0.5B + LoRA</div>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <div class="tab-switcher" role="tablist">
+        <button id="tabArena" class="tab-btn active" role="tab" aria-selected="true">
+          <span class="tab-icon">⚡</span>
+          <span>Side-by-Side Arena</span>
+          <span class="badge badge-demo">Faculty Demo</span>
+        </button>
+        <button id="tabChat" class="tab-btn" role="tab" aria-selected="false">
+          <span class="tab-icon">💬</span>
+          <span>Interactive Chat</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Telemetry Status Badges -->
+    <div class="nav-right">
+      <div class="telemetry-pill">
+        <span class="status-dot pulse"></span>
+        <span id="gpuStatusText" class="mono">RTX 4070 Laptop GPU</span>
+        <span class="pill-divider">|</span>
+        <span id="vramStatusText" class="mono text-highlight">976 MB VRAM</span>
+      </div>
+      <button id="btnExport" class="btn-secondary btn-icon-only" title="Export Current Session to Markdown">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace Layout -->
+  <div class="app-layout">
+    
+    <!-- Left Sidebar: Controls & Presets -->
+    <aside class="sidebar">
+      
+      <!-- Hyperparameter Controls -->
+      <section class="sidebar-section">
+        <div class="section-header">
+          <h3>Generation Controls</h3>
+          <button id="btnResetParams" class="btn-link" title="Reset to Defaults">Reset</button>
+        </div>
+
+        <div class="control-group">
+          <div class="slider-header">
+            <label for="sliderTemp">Temperature</label>
+            <span id="valTemp" class="slider-val mono">0.30</span>
+          </div>
+          <input type="range" id="sliderTemp" min="0.0" max="1.5" step="0.05" value="0.3">
+          <div class="slider-hint">Low = deterministic, High = creative</div>
+        </div>
+
+        <div class="control-group">
+          <div class="slider-header">
+            <label for="sliderTokens">Max New Tokens</label>
+            <span id="valTokens" class="slider-val mono">250</span>
+          </div>
+          <input type="range" id="sliderTokens" min="32" max="512" step="16" value="250">
+          <div class="slider-hint">Maximum output length</div>
+        </div>
+
+        <div class="control-group">
+          <div class="slider-header">
+            <label for="sliderTopP">Top-P (Nucleus)</label>
+            <span id="valTopP" class="slider-val mono">0.80</span>
+          </div>
+          <input type="range" id="sliderTopP" min="0.1" max="1.0" step="0.05" value="0.8">
+          <div class="slider-hint">Cumulative token sampling pool</div>
+        </div>
+
+        <div class="control-group">
+          <div class="slider-header">
+            <label for="sliderRep">Repetition Penalty</label>
+            <span id="valRep" class="slider-val mono">1.20</span>
+          </div>
+          <input type="range" id="sliderRep" min="1.0" max="1.4" step="0.02" value="1.2">
+          <div class="slider-hint">Penalizes phrase repetition</div>
+        </div>
+      </section>
+
+      <!-- Benchmark Prompt Library -->
+      <section class="sidebar-section">
+        <div class="section-header">
+          <h3>Curated Bengali Prompts</h3>
+          <span class="badge badge-subtle">Click to Test</span>
+        </div>
+        <div class="preset-list">
+          <button class="preset-card" data-prompt="বাংলাদেশের ইতিহাস ও স্বাধীনতা যুদ্ধ সম্পর্কে বলুন।">
+            <div class="preset-tag tag-history">History</div>
+            <div class="preset-bengali bengali">বাংলাদেশের ইতিহাস ও স্বাধীনতা যুদ্ধ...</div>
+            <div class="preset-eng">Bangladesh Liberation War (1971)</div>
+          </button>
+
+          <button class="preset-card" data-prompt="কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence) কী এবং এটি কীভাবে কাজ করে?">
+            <div class="preset-tag tag-tech">Science & AI</div>
+            <div class="preset-bengali bengali">কৃত্রিম বুদ্ধিমত্তা কী এবং এটি কীভাবে...</div>
+            <div class="preset-eng">How Artificial Intelligence Works</div>
+          </button>
+
+          <button class="preset-card" data-prompt="সুন্দরবনের গুরুত্ব এবং এর রয়েল বেঙ্গল টাইগার সম্পর্কে বিস্তারিত লিখুন।">
+            <div class="preset-tag tag-nature">Nature & Bio</div>
+            <div class="preset-bengali bengali">সুন্দরবনের গুরুত্ব ও রয়েল বেঙ্গল টাইগার...</div>
+            <div class="preset-eng">Sundarbans & Bengal Tiger</div>
+          </button>
+
+          <button class="preset-card" data-prompt="একজন শিক্ষার্থীর সুস্থ ও কর্মক্ষম থাকার জন্য তিনটি প্রয়োজনীয় নিয়ম কী?">
+            <div class="preset-tag tag-advice">Health / Advice</div>
+            <div class="preset-bengali bengali">শিক্ষার্থীর সুস্থ থাকার তিনটি নিয়ম...</div>
+            <div class="preset-eng">Healthy Habits for Students</div>
+          </button>
+
+          <button class="preset-card" data-prompt="রবীন্দ্রনাথ ঠাকুর ও কাজী নজরুল ইসলামের সাহিত্যকর্মের প্রধান বৈশিষ্ট্য কী?">
+            <div class="preset-tag tag-lit">Literature</div>
+            <div class="preset-bengali bengali">রবীন্দ্রনাথ ও নজরুলের সাহিত্যকর্ম...</div>
+            <div class="preset-eng">Rabindranath & Nazrul Literature</div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Architecture Specs Mini-Card -->
+      <section class="sidebar-section specs-card">
+        <h4>Distillation Specs</h4>
+        <div class="specs-grid mono">
+          <div class="spec-label">Student:</div><div class="spec-val">Qwen2.5-0.5B</div>
+          <div class="spec-label">PEFT:</div><div class="spec-val">QLoRA (r=16, α=32)</div>
+          <div class="spec-label">Adapter:</div><div class="spec-val">16.8 MB (safetensors)</div>
+          <div class="spec-label">Teachers:</div><div class="spec-val">Gemma-9B + Qwen-3.5-9B</div>
+          <div class="spec-label">Corpus:</div><div class="spec-val">5,985 articles (~5.8MB)</div>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Main Content Stage -->
+    <main class="main-content">
+
+      <!-- ================= VIEW 1: SIDE-BY-SIDE ARENA ================= -->
+      <div id="viewArena" class="view-panel active">
+        
+        <!-- Arena Stage Cards -->
+        <div class="arena-grid">
+          
+          <!-- Column 1: Vanilla Base Model -->
+          <div class="arena-card base-card">
+            <div class="arena-card-header">
+              <div class="card-title-group">
+                <span class="model-badge badge-base">Vanilla Base</span>
+                <span class="model-name">Qwen/Qwen2.5-0.5B</span>
+              </div>
+              <div class="card-meta">
+                <span id="baseMetrics" class="metric-tag mono">Ready</span>
+                <button id="btnCopyBase" class="btn-action-sm" title="Copy Output" disabled>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="arena-body">
+              <div id="baseOutput" class="output-text bengali placeholder">
+                Select a benchmark prompt from the sidebar or enter your prompt below, then click "Run Arena Comparison".
+              </div>
+            </div>
+
+            <div class="arena-footer">
+              <div class="footer-note red-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                <span>Adapter Disabled • Untuned Multilingual Baseline</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Distilled Student Model -->
+          <div class="arena-card student-card">
+            <div class="arena-card-header">
+              <div class="card-title-group">
+                <span class="model-badge badge-student">Distilled Student</span>
+                <span class="model-name">Qwen2.5-0.5B + Bangla LoRA</span>
+              </div>
+              <div class="card-meta">
+                <span id="studentMetrics" class="metric-tag mono">Ready</span>
+                <button id="btnCopyStudent" class="btn-action-sm" title="Copy Output" disabled>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="arena-body">
+              <div id="studentOutput" class="output-text bengali placeholder">
+                The fine-tuned student model with high-fidelity Bengali grammar, vocabulary grounding, and zero English code-switching will render here.
+              </div>
+            </div>
+
+            <div class="arena-footer">
+              <div class="footer-note green-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>LoRA Injected • Knowledge Distilled from Gemma-9B & Qwen-3.5-9B</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Arena Prompt Input Box -->
+        <div class="prompt-panel">
+          <div class="input-wrapper">
+            <textarea id="arenaPromptInput" class="bengali" rows="2" placeholder="বাংলায় আপনার প্রশ্ন বা প্রম্পট লিখুন... (Type your prompt in Bengali or select a preset)..."></textarea>
+            <div class="input-actions">
+              <div class="char-count mono" id="arenaCharCount">0 chars</div>
+              <button id="btnRunArena" class="btn-primary">
+                <span class="btn-glow"></span>
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">Run Arena Comparison</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= VIEW 2: INTERACTIVE CHAT ================= -->
+      <div id="viewChat" class="view-panel">
+        
+        <div class="chat-container">
+          <div id="chatMessages" class="chat-history">
+            <!-- Welcome Greeting -->
+            <div class="chat-bubble model-bubble">
+              <div class="bubble-avatar">🇧🇩</div>
+              <div class="bubble-content bengali">
+                <strong>স্বাগতম!</strong> আমি বাংলা ডিস্টিল (Bangla Distill) এর ক্ষুদ্র কিন্তু সক্ষম স্টুডেন্ট মডেল।<br>
+                আমাকে বাংলাদেশের ইতিহাস, বিজ্ঞান, সংস্কৃতি বা যেকোনো বিষয়ে প্রশ্ন করতে পারেন।
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="chat-input-bar">
+            <div class="toggle-lora-wrapper">
+              <label class="switch" title="Toggle LoRA Adapter on/off">
+                <input type="checkbox" id="chatLoraToggle" checked>
+                <span class="slider round"></span>
+              </label>
+              <span class="toggle-label mono">LoRA Active</span>
+            </div>
+            
+            <input type="text" id="chatInput" class="chat-input-field bengali" placeholder="বাংলায় মেসেজ টাইপ করুন (Press Enter to send)...">
+            
+            <button id="btnSendChat" class="btn-primary btn-icon-only">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Notification text</div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

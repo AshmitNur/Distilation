@@ -1,0 +1,19 @@
+Qwen2.5-0.5B-Instruct Bengali Fine-Tuning (v2)
+=============================================
+
+Base model: Qwen/Qwen2.5-0.5B-Instruct
+Dataset: ChatML instruction-response pairs
+Training examples: 5387
+Validation examples: 598
+Method: QLoRA (4-bit NF4)
+LoRA rank: 16
+LoRA alpha: 32
+Epochs: 3
+Loss: Completion-only (assistant tokens only)
+Compute: FP16
+
+Key v2 improvements:
+- Instruct base model (ChatML-aware)
+- Instruction-response dataset format
+- Assistant-only loss masking
+- 3 epochs with validation early stopping
