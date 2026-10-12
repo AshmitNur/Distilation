@@ -29,9 +29,26 @@ from google import genai
 # --- Configuration & Paths ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR) if os.path.basename(BASE_DIR).lower() == "ui" else BASE_DIR
-BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+
+_3B_DIR = os.path.join(PROJECT_ROOT, "bangla_distill_3b_adapter")
 _UNSLOTH_DIR = os.path.join(PROJECT_ROOT, "bangla_distill_unsloth_adapter")
-ADAPTER_DIR = _UNSLOTH_DIR if os.path.exists(_UNSLOTH_DIR) else os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+
+if os.path.exists(_3B_DIR):
+    ADAPTER_DIR = _3B_DIR
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+    MODEL_DISPLAY_PARAMS = "3.09B"
+    LOAD_IN_4BIT = True
+elif os.path.exists(_UNSLOTH_DIR):
+    ADAPTER_DIR = _UNSLOTH_DIR
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    MODEL_DISPLAY_PARAMS = "502.8M"
+    LOAD_IN_4BIT = False
+else:
+    ADAPTER_DIR = os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    MODEL_DISPLAY_PARAMS = "502.8M"
+    LOAD_IN_4BIT = False
+
 SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
@@ -92,13 +109,28 @@ def load_engine():
     print(f"[INIT] Loading tokenizer from: {ADAPTER_DIR}")
     state["tokenizer"] = AutoTokenizer.from_pretrained(ADAPTER_DIR, trust_remote_code=True)
 
-    print(f"[INIT] Loading base model ({BASE_MODEL_NAME}) in FP16...")
-    base_model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=state["dtype"],
-        device_map=state["device"],
-        trust_remote_code=True
-    )
+    if LOAD_IN_4BIT and state["device"] == "cuda":
+        from transformers import BitsAndBytesConfig
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16
+        )
+        print(f"[INIT] Loading base model ({BASE_MODEL_NAME}) in 4-bit NF4 precision for RTX 4070...")
+        base_model = AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            quantization_config=bnb_config,
+            device_map="cuda",
+            trust_remote_code=True
+        )
+    else:
+        print(f"[INIT] Loading base model ({BASE_MODEL_NAME}) in FP16...")
+        base_model = AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            torch_dtype=state["dtype"],
+            device_map=state["device"],
+            trust_remote_code=True
+        )
 
     print(f"[INIT] Attaching LoRA adapter from: {ADAPTER_DIR}")
     state["model"] = PeftModel.from_pretrained(base_model, ADAPTER_DIR)
@@ -265,17 +297,17 @@ app = FastAPI(
 class GenerateRequest(BaseModel):
     prompt: str = Field(..., min_length=1, description="Prompt text (Bengali preferred)")
     max_new_tokens: int = Field(250, ge=16, le=512)
-    temperature: float = Field(0.3, ge=0.0, le=1.5)
-    top_p: float = Field(0.8, ge=0.1, le=1.0)
-    repetition_penalty: float = Field(1.2, ge=1.0, le=1.5)
+    temperature: float = Field(0.2, ge=0.0, le=1.5)
+    top_p: float = Field(0.85, ge=0.1, le=1.0)
+    repetition_penalty: float = Field(1.05, ge=1.0, le=1.5)
     use_lora: bool = Field(True, description="Enable LoRA adapter")
 
 class CompareRequest(BaseModel):
     prompt: str = Field(..., min_length=1)
     max_new_tokens: int = Field(250, ge=16, le=512)
-    temperature: float = Field(0.3, ge=0.0, le=1.5)
-    top_p: float = Field(0.8, ge=0.1, le=1.0)
-    repetition_penalty: float = Field(1.2, ge=1.0, le=1.5)
+    temperature: float = Field(0.2, ge=0.0, le=1.5)
+    top_p: float = Field(0.85, ge=0.1, le=1.0)
+    repetition_penalty: float = Field(1.05, ge=1.0, le=1.5)
 
 # Endpoints
 @app.get("/api/status")
@@ -287,7 +319,7 @@ async def get_status():
         "vram_total_gb": state["vram_total_gb"],
         "vram_allocated_mb": get_vram_mb(),
         "base_model": BASE_MODEL_NAME,
-        "parameters": "502.8M",
+        "parameters": MODEL_DISPLAY_PARAMS,
         "teachers": ["Gemma-2-9B-IT (Google)", "Qwen 3.5 9B (Alibaba)"],
         "lora_specs": {
             "rank": 16,
