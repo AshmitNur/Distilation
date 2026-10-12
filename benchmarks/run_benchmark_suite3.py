@@ -32,7 +32,8 @@ from pdf_generator import html_to_pdf
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-ADAPTER_PATH = os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+_UNSLOTH = os.path.join(PROJECT_ROOT, "bangla_distill_unsloth_adapter")
+ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 

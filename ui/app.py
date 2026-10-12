@@ -30,7 +30,8 @@ from google import genai
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR) if os.path.basename(BASE_DIR).lower() == "ui" else BASE_DIR
 BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-ADAPTER_DIR = os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+_UNSLOTH_DIR = os.path.join(PROJECT_ROOT, "bangla_distill_unsloth_adapter")
+ADAPTER_DIR = _UNSLOTH_DIR if os.path.exists(_UNSLOTH_DIR) else os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
 SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 

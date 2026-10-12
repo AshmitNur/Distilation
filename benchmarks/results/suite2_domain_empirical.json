@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-12 19:03:42",
+  "timestamp": "2026-10-13 02:19:50",
   "base_results": [
     {
       "test_case": {
@@ -16,21 +16,22 @@
           "শহীদ"
         ]
       },
-      "generated_text": "মহান মুক্তিযুদ্ধ, জয় আছে! আমরা আপনার বাংলাদেশের ইতিহাসে অন্যান্য গণ্ডগুলি বিস্তারিত করব।\n\n1. মহান মুক্তিযুদ্ধের মধ্যে আপনার শেষ চিন্তা:\n   - মহান মুক্তিযুদ্ধের মধ্যে আপনার শেষ",
-      "elapsed_seconds": 9.6,
+      "generated_text": "এই জগতে আমরা বাংলাদেশের ইতিহাসের অধিকাংশ এবং মহান মুক্তিযুদ্ধের প্রথম গণ্ড প্রকাশ করি।\n\n১৯৭১ সালের মহান মুক্তিযুদ্ধের প্রথম গণ্ড হয়েছিল। এটি একটি মহান মুক্তিযুদ্ধের মধ্�",
+      "elapsed_seconds": 8.05,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 72.0,
+        "unique_ngram_ratio": 76.0,
         "has_broken_glyphs": false,
         "word_count": 25
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 2.3,
-        "overall": 3.6,
+        "factuality": 3.0,
+        "overall": 3.9,
         "matched_topics": [
+          "১৯৭১",
           "মুক্তিযুদ্ধ",
           "বাংলাদেশ"
         ]
@@ -51,20 +52,20 @@
           "ডেটা"
         ]
       },
-      "generated_text": "কৃত্রিম বুদ্ধিমত্তা, এই অ্যালগোড়া হওয়ার প্রধান প্রতিটি বিশ্বাসের ফলে আধুনিক বিশ্বের কাজ করে। এছাড়াও এটি একটি গুরুত্বপূর্ণ ও প্রকাশিত সম্পর্কে চাই।\n\n1. আধুনিক বিশ্বের ক",
-      "elapsed_seconds": 7.63,
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence, AI) হল একটি অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে। এটি একটি ব্যবহারকারী ও ব্যবহারকারী সাথে চাইতেছে, যা এই অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে।\n\nAI �",
+      "elapsed_seconds": 7.13,
       "tokens_generated": 180,
       "orthography_stats": {
-        "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 92.0,
+        "bengali_char_ratio": 83.85093167701864,
+        "unique_ngram_ratio": 75.0,
         "has_broken_glyphs": false,
-        "word_count": 25
+        "word_count": 28
       },
       "scores": {
         "fluency": 4.2,
-        "orthography": 4.9,
+        "orthography": 3.5,
         "factuality": 1.7,
-        "overall": 3.4,
+        "overall": 3.0,
         "matched_topics": [
           "কৃত্রিম বুদ্ধিমত্তা"
         ]
@@ -85,23 +86,21 @@
           "প্রকৃতি"
         ]
       },
-      "generated_text": "এই অনুষ্ঠিত হল আমাদের মধ্যে একটি শিল্প করছি, যা বিশ্লেষণ করে এবং সুন্দরবনের পরিবেশগত গুরুত্ব ও রয়েল বেঙ্গল টাইগার সংরক্ষণের প্রয়োজনীয়তা ব্যাখ্যা করা হয়। আমরা এই সু",
-      "elapsed_seconds": 7.81,
+      "generated_text": "এই আমি একটি বাংলা শিল্পের অনুষ্ঠানে চাই। আমি একটি বাংলা শিল্পের মধ্যে আপনি একটি সম্পূর্ণ জীবনের প্রশ্ন থেকে একটি বিশেষ প্রয়োজনীয় সাহায্য করতে পারি। আমি আপনি একটি বাংলা শিল",
+      "elapsed_seconds": 7.05,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 96.29629629629629,
+        "unique_ngram_ratio": 65.51724137931035,
         "has_broken_glyphs": false,
-        "word_count": 27
+        "word_count": 29
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 3.0,
-        "overall": 3.9,
+        "factuality": 1.7,
+        "overall": 3.4,
         "matched_topics": [
-          "সুন্দরবন",
-          "রয়েল বেঙ্গল টাইগার",
           "বন"
         ]
       }
@@ -121,21 +120,23 @@
           "নিয়মানুবর্তিতা"
         ]
       },
-      "generated_text": "1. গণিত পদক্ষেপ: আপনি এই সুস্থ শরীরের সৃষ্টি করছেন এবং তাই আপনি গণিত পদক্ষেপের চেষ্টা করছেন। তাহলে আপনি সুস্থ শরীরের প্রয়োজনীয় নিয়ম করতে পারেন।\n\n2. সাধারণ প্রয়োজনী",
-      "elapsed_seconds": 7.71,
+      "generated_text": "1. আপনার প্রয়োজনীয় সুস্থ শরীর: আপনার সুস্থ শরীর হল আপনার সুস্থ শরীর এবং আপনার সুস্থ শরীর ছিলেন।\n\n2. পড়াশোনায় মনোযোগ: পড়াশোনায় মনোযোগ হল আপনার সুস্থ শর�",
+      "elapsed_seconds": 7.29,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 81.48148148148148,
+        "unique_ngram_ratio": 53.84615384615385,
         "has_broken_glyphs": false,
-        "word_count": 27
+        "word_count": 26
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 1.0,
-        "overall": 3.1,
-        "matched_topics": []
+        "factuality": 1.7,
+        "overall": 3.4,
+        "matched_topics": [
+          "মনোযোগ"
+        ]
       }
     },
     {
@@ -153,11 +154,11 @@
           "সাহিত্য"
         ]
       },
-      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ (Bhadra) এবং বাংলা সাহিত্যের অবদান সম্পর্কে আলোচনা করা হয়েছে। এই মধ্যে সম্পূর্ণ জীবন, সম্মান, গৌরব ও প্রতিষ্ঠা এবং সম্পূর্ণ সাধারণ প্রতিষ্ঠা প্রতিষ্ঠা কর",
-      "elapsed_seconds": 7.53,
+      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ (1826-1904) একটি মহাসাগর ও জয়নামৃত ছিল। তিনি চারটি বাংলা সাহিত্যের অবদান এবং সাধারণ সাহিত্যের অবদানগুলি দেখা যায়।\n\n1. সাহিত্য: রবীন্দ্রনাথ একটি মহাসাগর �",
+      "elapsed_seconds": 7.43,
       "tokens_generated": 180,
       "orthography_stats": {
-        "bengali_char_ratio": 95.8904109589041,
+        "bengali_char_ratio": 100.0,
         "unique_ngram_ratio": 84.0,
         "has_broken_glyphs": false,
         "word_count": 25
@@ -190,14 +191,14 @@
           "শহীদ"
         ]
       },
-      "generated_text": "১৯৭১ সালের মহান মুক্তিযুদ্ধ বাংলাদেশের জাতীয় আন্দোলনের অন্যতম গুরুত্বপূর্ণ অঙ্গ। এই মুক্তিযুদ্ধে বাংলাদেশের স্থাপত্য, শিল্প, সংস্কৃতি এবং রাজনৈতিক স্থাপত্যের প্র",
-      "elapsed_seconds": 14.8,
+      "generated_text": "বাংলাদেশের ইতিহাস ও মহান মুক্তিযুদ্ধ বাংলাদেশের অধিকাংশ আইন-অর্থনৈতিক গ্রন্থগুলোর মধ্যে একটি অঙ্গরাজ্য ছিল। এটি বাংলাদেশের সবচেয়ে শুধুমাত্র স্বাধীনতা প্রবাহ করেছিল, বরং �",
+      "elapsed_seconds": 13.72,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 95.0,
+        "unique_ngram_ratio": 90.9090909090909,
         "has_broken_glyphs": false,
-        "word_count": 20
+        "word_count": 22
       },
       "scores": {
         "fluency": 4.2,
@@ -205,8 +206,8 @@
         "factuality": 3.0,
         "overall": 3.9,
         "matched_topics": [
-          "১৯৭১",
           "মুক্তিযুদ্ধ",
+          "স্বাধীনতা",
           "বাংলাদেশ"
         ]
       }
@@ -226,14 +227,14 @@
           "ডেটা"
         ]
       },
-      "generated_text": "কৃত্রিম বুদ্ধিমত্তা হলো বৈজ্ঞানিক বৈশিষ্ট্য ও গণিতের অন্যতম প্রয়োগফল। এই ফলটি বৈজ্ঞানিক বৈশিষ্ট্যের সাথে ব্যবহৃত এবং গণিতের সাথে ব্যবহৃত হয়। কৃত্রিম বুদ্ধিমত্তা ব্�",
-      "elapsed_seconds": 15.61,
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা, বা অ্যালগ্রাফিক্স হলো একটি গণিতীয় বিশ্ববিদ্যালয় যা ১৯৩৩ সালে প্রচলিত হয়েছিল। এই বিশ্ববিদ্যালয়টি বিশ্বের সবচেয়ে বড় ও সম্পূর্ণ বিশ্ববিদ্যালয",
+      "elapsed_seconds": 15.45,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 73.91304347826086,
+        "unique_ngram_ratio": 100.0,
         "has_broken_glyphs": false,
-        "word_count": 23
+        "word_count": 21
       },
       "scores": {
         "fluency": 4.2,
@@ -260,14 +261,14 @@
           "প্রকৃতি"
         ]
       },
-      "generated_text": "সুন্দরবনের পরিবেশগত গুরুত্ব হলো সুন্দরবনের মধ্যে অনেক প্রাচীন ও জনপ্রিয় পদার্থ আছে।  এই পদার্থগুলো সম্পূর্ণ স্থানে সুন্দরবনের মধ্যে অনেক প্রাচীন ও জনপ্রিয় পদার্থ আছে",
-      "elapsed_seconds": 15.71,
+      "generated_text": "সুন্দরবনের পরিবেশগত গুরুত্ব হল সম্পূর্ণ শৈলীর অধ্যায়, মৌখিক ও আন্তর্জাতিক সুন্দরবনের পরিচালনা, সম্পূর্ণ শৈলীর প্রতিফলন এবং সম্পূর্ণ শৈলীর প্রতিফলনের স্থান স্থাপন ক",
+      "elapsed_seconds": 15.93,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 66.66666666666666,
+        "unique_ngram_ratio": 77.27272727272727,
         "has_broken_glyphs": false,
-        "word_count": 24
+        "word_count": 22
       },
       "scores": {
         "fluency": 4.2,
@@ -295,21 +296,24 @@
           "নিয়মানুবর্তিতা"
         ]
       },
-      "generated_text": "অধ্যায়না, গবেষণা, শিক্ষা, সম্পাদনা, আইন, চিন্তা, স্বাধীনতা ইত্যাদি বিষয়ের উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের সম্পূর্ণ উপস্থিতি বিষয়ের",
-      "elapsed_seconds": 15.69,
+      "generated_text": "শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য আধুনিক ইতিহাসে একটি গুরুত্বপূর্ণ ঘটনা ছিল বাংলাদেশের প্রথম বিখ্যাত শিক্ষার্থী শৈলী। ১৯৫৩ সালে শিক্ষার্থী",
+      "elapsed_seconds": 14.55,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 55.00000000000001,
+        "unique_ngram_ratio": 95.45454545454545,
         "has_broken_glyphs": false,
-        "word_count": 20
+        "word_count": 22
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 1.0,
-        "overall": 3.1,
-        "matched_topics": []
+        "factuality": 2.3,
+        "overall": 3.6,
+        "matched_topics": [
+          "শিক্ষার্থী",
+          "মনোযোগ"
+        ]
       }
     },
     {
@@ -327,14 +331,14 @@
           "সাহিত্য"
         ]
       },
-      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর (১৮৩৫ – ১৮৮২) ছিলেন ইতালীয় গণের জন্মস্থান ও শিক্ষা প্রতিষ্ঠানের প্রধান ব্যক্তিত্ব। তিনি ইতালীয় সঙ্গীত প্রতিষ্ঠাতা এবং ইতালীয় গণের জন্ম",
-      "elapsed_seconds": 14.58,
+      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর (১৩ জুন ১৮৫৩ – ১৩ জুন ১৮৯২) ছিলেন ইতালীয় গণিতবিদ, চিত্রকর, ও সঙ্গীতকার। তিনি প্রাচীন ইতালীয় গণিতের অধ্যাপক ছিলেন। তাঁর গবেষণা গণিতে",
+      "elapsed_seconds": 15.73,
       "tokens_generated": 180,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 86.95652173913044,
+        "unique_ngram_ratio": 92.0,
         "has_broken_glyphs": false,
-        "word_count": 23
+        "word_count": 25
       },
       "scores": {
         "fluency": 4.2,
@@ -349,13 +353,13 @@
     }
   ],
   "averages": {
-    "base_overall": 3.5200000000000005,
-    "student_overall": 3.5200000000000005,
+    "base_overall": 3.46,
+    "student_overall": 3.62,
     "base_fluency": 4.2,
     "student_fluency": 4.2,
-    "base_orthography": 4.9,
+    "base_orthography": 4.62,
     "student_orthography": 4.9,
-    "base_factuality": 2.06,
-    "student_factuality": 2.06
+    "base_factuality": 2.0799999999999996,
+    "student_factuality": 2.3200000000000003
   }
 }

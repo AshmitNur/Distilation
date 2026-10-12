@@ -15,7 +15,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 
 BASE_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
-ADAPTER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "final-lora-adapter-v2")
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+_UNSLOTH_DIR = os.path.join(_BASE_DIR, "bangla_distill_unsloth_adapter")
+ADAPTER_DIR = _UNSLOTH_DIR if os.path.exists(_UNSLOTH_DIR) else os.path.join(_BASE_DIR, "final-lora-adapter-v2")
 SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
 
 def main():
