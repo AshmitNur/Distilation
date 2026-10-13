@@ -76,10 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnResetParams.addEventListener('click', () => {
-    sliderTemp.value = 0.30;
+    sliderTemp.value = 0.20;
     sliderTokens.value = 250;
-    sliderTopP.value = 0.80;
-    sliderRep.value = 1.20;
+    sliderTopP.value = 0.85;
+    sliderRep.value = 1.05;
     updateSliderDisplay();
     showToast("Parameters reset to defaults");
   });
@@ -101,6 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await res.json();
         gpuStatusText.textContent = data.gpu_name || 'GPU Ready';
         vramStatusText.textContent = `${data.vram_allocated_mb} MB VRAM`;
+
+        // Dynamically update model badges if 3B is loaded
+        const baseTitle = document.querySelector('.base-card .model-name');
+        const studentTitle = document.querySelector('.student-card .model-name');
+        const specVal = document.querySelector('.specs-grid .spec-val');
+
+        if (data.base_model && data.base_model.includes('3B')) {
+          if (baseTitle) baseTitle.textContent = 'Qwen/Qwen2.5-3B';
+          if (studentTitle) studentTitle.textContent = 'Qwen2.5-3B + Bangla LoRA';
+          if (specVal) specVal.textContent = 'Qwen2.5-3B (3.09B)';
+        }
       }
     } catch (err) {
       console.warn("Telemetry fetch error:", err);

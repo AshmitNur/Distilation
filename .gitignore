@@ -23,3 +23,5 @@ Thumbs.db
 *.pt
 **/training-output/
 checkpoint-*/
+models/bangla_distill_3b_adapter/*.safetensors
+models/bangla_distill_3b_adapter/*.bin
