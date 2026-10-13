@@ -55,32 +55,45 @@ Bengali has over 230 million native speakers, yet open-source language models un
 
 ```
 Bangla Distill/
-├── final-lora-adapter-v2/              # Production LoRA adapter weights (v2)
-│   ├── adapter_config.json
-│   ├── adapter_model.safetensors
-│   ├── chat_template.jinja
-│   ├── tokenizer.json
-│   ├── tokenizer_config.json
-│   └── TRAINING_INFO.txt
-├── train_bangla_unsloth_kaggle.ipynb   # ⚡ Fast Unsloth SFT + DPO training on Kaggle GPU
-├── run_bangla_student_unsloth.ipynb    # ⚡ Unsloth accelerated inference runner on Kaggle
-├── train_unsloth_kaggle.py             # Standalone Unsloth training script
-├── ui/                                 # FastAPI + HTML5 Interactive Chat Console
-│   ├── app.py                          # Backend API & inference engine
-│   ├── launch_ui.bat / launch_ui.ps1
-│   └── static/                         # Frontend UI (HTML, CSS, JS)
-├── run_local_inference.py              # CLI GPU inference script
-├── prepare_chat_dataset.py             # Data preparation & format pipeline
-├── run_bangla_student.ipynb            # Colab/Kaggle inference notebook
-├── train_bangla_v2.ipynb               # Colab/Kaggle training notebook (v2)
-├── teacher_corpus_gemma.jsonl          # Distilled corpus from Gemma-2-9B (40k samples)
-├── teacher_corpus_qwen.jsonl           # Distilled corpus from Qwen-3.5-9B (40k samples)
-├── train_chat.jsonl                    # Train split (ChatML format)
-├── val_chat.jsonl                      # Validation split (ChatML format)
-├── Bangla_Distill_Faculty_Overview.pdf # Faculty briefing report
-├── Bangla_Distill_Project_Report.pdf   # Complete project documentation
-├── local_test_results.md               # Empirical evaluation logs
-└── START_UI.bat                        # One-click UI startup script
+├── 📂 data/                                # Training & evaluation datasets
+│   ├── train_chat_3b.jsonl                 # Curated 3B training split
+│   ├── val_chat_3b.jsonl                   # Curated 3B validation split
+│   ├── train_chat.jsonl / val_chat.jsonl   # 80k baseline dataset
+│   ├── teacher_corpus_gemma.jsonl          # Gemma-2-9B-IT teacher articles
+│   ├── teacher_corpus_qwen.jsonl           # Qwen-3.5-9B teacher articles
+│   ├── prepare_3b_dataset.py               # Clean encyclopedic dataset builder
+│   └── prepare_chat_dataset.py             # Baseline dataset preparation pipeline
+├── 📂 models/                              # Trained LoRA adapters & checkpoints
+│   ├── bangla_distill_unsloth_adapter/     # 80k Unsloth student adapter (active)
+│   ├── final-lora-adapter-v2/              # Baseline v2 student adapter
+│   └── qwen-2.5-0.5b-bangla-complete/      # Merged student model
+├── 📂 notebooks/                           # Kaggle / Colab training & inference pipelines
+│   ├── train_bangla_3b_unsloth_kaggle.ipynb # 🚀 Qwen2.5-3B Unsloth Kaggle pipeline
+│   ├── train_bangla_unsloth_kaggle.ipynb    # Qwen2.5-0.5B Unsloth training notebook
+│   ├── run_bangla_student_unsloth.ipynb     # Unsloth GPU inference notebook
+│   └── train_bangla_v2.ipynb                # Baseline training notebook
+├── 📂 benchmarks/                          # Multi-suite automated evaluation suite
+│   ├── run_all_benchmarks.py               # Master benchmark runner
+│   ├── run_benchmark_suite1.py             # Suite 1: Quantitative NLG (chrF++, BLEU, PPL)
+│   ├── run_benchmark_suite2.py             # Suite 2: Domain Empirical (History, Science, etc.)
+│   ├── run_benchmark_suite3.py             # Suite 3: Edge Hardware Profiling (RTX 4070)
+│   └── pdf_generator.py                    # Chrome headless PDF generator
+├── 📂 reports/                             # Academic evaluation reports & faculty briefs
+│   ├── Bangla_Distill_Benchmark_Suite1_Quantitative_NLG.pdf
+│   ├── Bangla_Distill_Benchmark_Suite2_Domain_Empirical.pdf
+│   ├── Bangla_Distill_Benchmark_Suite3_Hardware_Efficiency.pdf
+│   ├── Bangla_Distill_Faculty_Overview.pdf
+│   └── Bangla_Distill_Project_Report.pdf
+├── 📂 scripts/                             # Utility & local testing scripts
+│   ├── run_local_inference.py              # CLI GPU inference script
+│   └── test_generation.py                  # Generation hyperparameter diagnostics
+├── 📂 ui/                                  # Full-stack Web UI & API
+│   ├── app.py                              # FastAPI backend (auto-detects 0.5B / 3B)
+│   └── static/                             # Arena UI (HTML, CSS, JS)
+├── 📂 archives/                            # Large zip archives (git-ignored)
+├── START_UI.bat                            # 1-Click Web UI launcher
+├── RUN_INFERENCE.bat                       # 1-Click Terminal CLI launcher
+└── README.md                               # Project documentation
 ```
 
 ---
@@ -103,10 +116,11 @@ Run interactive chat or evaluate a single prompt:
 
 ```bash
 # Interactive Chat Mode
-python run_local_inference.py --interactive
+python scripts/run_local_inference.py --interactive
+# Or double-click RUN_INFERENCE.bat
 
 # Single Prompt Evaluation
-python run_local_inference.py --prompt "বাংলাদেশের স্বাধীনতা যুদ্ধের তাৎপর্য ব্যাখ্যা করুন।"
+python scripts/run_local_inference.py --prompt "বাংলাদেশের স্বাধীনতা যুদ্ধের তাৎপর্য ব্যাখ্যা করুন।"
 ```
 
 ### 3. Interactive Web Chat Interface

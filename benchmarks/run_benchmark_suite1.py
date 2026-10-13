@@ -34,10 +34,18 @@ from pdf_generator import html_to_pdf
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "val_chat.jsonl")
+VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl") if os.path.exists(os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl")) else os.path.join(PROJECT_ROOT, "val_chat.jsonl")
 BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-_UNSLOTH = os.path.join(PROJECT_ROOT, "bangla_distill_unsloth_adapter")
-ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+
+def _resolve_model_dir(name: str) -> str:
+    p1 = os.path.join(PROJECT_ROOT, "models", name)
+    if os.path.exists(p1): return p1
+    p2 = os.path.join(PROJECT_ROOT, name)
+    if os.path.exists(p2): return p2
+    return p1
+
+_UNSLOTH = _resolve_model_dir("bangla_distill_unsloth_adapter")
+ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else _resolve_model_dir("final-lora-adapter-v2")
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -579,7 +587,9 @@ def run_suite():
 </body>
 </html>
 """
-    pdf_out = os.path.join(PROJECT_ROOT, "Bangla_Distill_Benchmark_Suite1_Quantitative_NLG.pdf")
+    reports_dir = os.path.join(PROJECT_ROOT, "reports")
+    os.makedirs(reports_dir, exist_ok=True)
+    pdf_out = os.path.join(reports_dir, "Bangla_Distill_Benchmark_Suite1_Quantitative_NLG.pdf")
     html_to_pdf(html, pdf_out)
     print(f"\n🎉 Suite 1 Complete! PDF Report Generated at:\n   {pdf_out}")
     return pdf_out

@@ -1,4 +1,6 @@
-{
+import json
+
+notebook = {
  "nbformat": 4,
  "nbformat_minor": 0,
  "metadata": {
@@ -8,10 +10,7 @@
    "name": "python3"
   },
   "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
+   "codemirror_mode": {"name": "ipython", "version": 3},
    "file_extension": ".py",
    "mimetype": "text/x-python",
    "name": "python",
@@ -51,7 +50,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -84,7 +83,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -98,8 +97,12 @@
     "VAL_FILE = os.path.join(WORKING_DIR, \"val_chat_3b.jsonl\")\n",
     "\n",
     "print(\"Fetching curated 3B Bengali dataset from GitHub...\")\n",
-    "urllib.request.urlretrieve(f\"{GITHUB_RAW}/train_chat_3b.jsonl\", TRAIN_FILE)\n",
-    "urllib.request.urlretrieve(f\"{GITHUB_RAW}/val_chat_3b.jsonl\", VAL_FILE)\n",
+    "for fn in [\"train_chat_3b.jsonl\", \"val_chat_3b.jsonl\"]:\n",
+    "    dest = os.path.join(WORKING_DIR, fn)\n",
+    "    try:\n",
+    "        urllib.request.urlretrieve(f\"{GITHUB_RAW}/data/{fn}\", dest)\n",
+    "    except Exception:\n",
+    "        urllib.request.urlretrieve(f\"{GITHUB_RAW}/{fn}\", dest)\n",
     "\n",
     "print(f\"✅ Train dataset: {TRAIN_FILE} ({os.path.getsize(TRAIN_FILE)/(1024**2):.2f} MB)\")\n",
     "print(f\"✅ Val dataset  : {VAL_FILE} ({os.path.getsize(VAL_FILE)/(1024**2):.2f} MB)\")"
@@ -115,7 +118,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -160,7 +163,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -196,7 +199,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -261,7 +264,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -291,7 +294,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -310,3 +313,11 @@
   }
  ]
 }
+
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+nb_path = os.path.join(script_dir, "train_bangla_3b_unsloth_kaggle.ipynb")
+with open(nb_path, "w", encoding="utf-8") as f:
+    json.dump(notebook, f, indent=1, ensure_ascii=False)
+
+print(f"Created {nb_path} successfully!")

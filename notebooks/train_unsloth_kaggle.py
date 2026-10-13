@@ -50,12 +50,18 @@ GITHUB_RAW_BASE = "https://raw.githubusercontent.com/AshmitNur/Distilation/main"
 if not TRAIN_FILE or not os.path.exists(TRAIN_FILE):
     print("Auto-downloading train_chat.jsonl from GitHub...")
     TRAIN_FILE = os.path.join(WORKING_DIR, "train_chat.jsonl")
-    urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/train_chat.jsonl", TRAIN_FILE)
+    try:
+        urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/data/train_chat.jsonl", TRAIN_FILE)
+    except Exception:
+        urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/train_chat.jsonl", TRAIN_FILE)
 
 if not VAL_FILE or not os.path.exists(VAL_FILE):
     print("Auto-downloading val_chat.jsonl from GitHub...")
     VAL_FILE = os.path.join(WORKING_DIR, "val_chat.jsonl")
-    urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/val_chat.jsonl", VAL_FILE)
+    try:
+        urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/data/val_chat.jsonl", VAL_FILE)
+    except Exception:
+        urllib.request.urlretrieve(f"{GITHUB_RAW_BASE}/val_chat.jsonl", VAL_FILE)
 
 print(f"✅ Training Dataset: {TRAIN_FILE}")
 print(f"✅ Validation Dataset: {VAL_FILE}")

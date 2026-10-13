@@ -14,10 +14,35 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 
-BASE_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
-_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-_UNSLOTH_DIR = os.path.join(_BASE_DIR, "bangla_distill_unsloth_adapter")
-ADAPTER_DIR = _UNSLOTH_DIR if os.path.exists(_UNSLOTH_DIR) else os.path.join(_BASE_DIR, "final-lora-adapter-v2")
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(_SCRIPT_DIR) if os.path.basename(_SCRIPT_DIR).lower() == "scripts" else _SCRIPT_DIR
+
+def _resolve_model_dir(name: str) -> str:
+    models_path = os.path.join(_PROJECT_ROOT, "models", name)
+    if os.path.exists(models_path):
+        return models_path
+    root_path = os.path.join(_PROJECT_ROOT, name)
+    if os.path.exists(root_path):
+        return root_path
+    return models_path
+
+_3B_DIR = _resolve_model_dir("bangla_distill_3b_adapter")
+_UNSLOTH_DIR = _resolve_model_dir("bangla_distill_unsloth_adapter")
+_V2_DIR = _resolve_model_dir("final-lora-adapter-v2")
+
+if os.path.exists(_3B_DIR):
+    ADAPTER_DIR = _3B_DIR
+    BASE_MODEL = "Qwen/Qwen2.5-3B-Instruct"
+    USE_4BIT = True
+elif os.path.exists(_UNSLOTH_DIR):
+    ADAPTER_DIR = _UNSLOTH_DIR
+    BASE_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+else:
+    ADAPTER_DIR = _V2_DIR
+    BASE_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+
 SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
 
 def main():

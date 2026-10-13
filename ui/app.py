@@ -30,8 +30,18 @@ from google import genai
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR) if os.path.basename(BASE_DIR).lower() == "ui" else BASE_DIR
 
-_3B_DIR = os.path.join(PROJECT_ROOT, "bangla_distill_3b_adapter")
-_UNSLOTH_DIR = os.path.join(PROJECT_ROOT, "bangla_distill_unsloth_adapter")
+def _resolve_model_dir(name: str) -> str:
+    models_path = os.path.join(PROJECT_ROOT, "models", name)
+    if os.path.exists(models_path):
+        return models_path
+    root_path = os.path.join(PROJECT_ROOT, name)
+    if os.path.exists(root_path):
+        return root_path
+    return models_path
+
+_3B_DIR = _resolve_model_dir("bangla_distill_3b_adapter")
+_UNSLOTH_DIR = _resolve_model_dir("bangla_distill_unsloth_adapter")
+_V2_DIR = _resolve_model_dir("final-lora-adapter-v2")
 
 if os.path.exists(_3B_DIR):
     ADAPTER_DIR = _3B_DIR
@@ -44,7 +54,7 @@ elif os.path.exists(_UNSLOTH_DIR):
     MODEL_DISPLAY_PARAMS = "502.8M"
     LOAD_IN_4BIT = False
 else:
-    ADAPTER_DIR = os.path.join(PROJECT_ROOT, "final-lora-adapter-v2")
+    ADAPTER_DIR = _V2_DIR
     BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
     MODEL_DISPLAY_PARAMS = "502.8M"
     LOAD_IN_4BIT = False
