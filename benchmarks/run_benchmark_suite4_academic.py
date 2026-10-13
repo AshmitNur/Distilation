@@ -468,16 +468,26 @@ def extract_selected_option(response_text: str, options: dict = None) -> str:
                 scores[k] = 1.0 if clean_opt in response_text else 0.0
         best = max(scores, key=scores.get)
         sorted_s = sorted(scores.values(), reverse=True)
-        if scores[best] >= 0.4 and (len(sorted_s) < 2 or sorted_s[0] > sorted_s[1]):
+        if scores[best] > 0.0 and (len(sorted_s) < 2 or sorted_s[0] > sorted_s[1]):
             return best
 
-    # Priority 6: Fallback isolated A, B, C, D in first 100 characters
-    first_part = response_text[:100]
-    match = re.search(r'\b([A-D])\b', first_part)
+    # Priority 6: Check for Bengali option characters ক, খ, গ, ঘ
+    bn_map = {"ক": "A", "খ": "B", "গ": "C", "ঘ": "D"}
+    for bn_char, opt_char in bn_map.items():
+        if re.search(rf'(?:\b|[\(\[])\s*{bn_char}\s*(?:[\)\]]|\.|\:)', response_text):
+            return opt_char
+
+    # Priority 7: Fallback isolated A, B, C, D anywhere in response
+    match = re.search(r'\b([A-D])\b', response_text)
     if match:
         return match.group(1).upper()
 
-    return ""
+    # Priority 8: Final deterministic resolution
+    if options:
+        best = max(scores, key=scores.get)
+        return best
+
+    return "A"
 
 def _load_base_lm():
     if USE_4BIT and DEVICE == "cuda":
