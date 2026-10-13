@@ -68,37 +68,37 @@
         <div class="control-group">
           <div class="slider-header">
             <label for="sliderTemp">Temperature</label>
-            <span id="valTemp" class="slider-val mono">0.30</span>
+            <span id="valTemp" class="slider-val mono">0.20</span>
           </div>
-          <input type="range" id="sliderTemp" min="0.0" max="1.5" step="0.05" value="0.3">
+          <input type="range" id="sliderTemp" min="0.0" max="1.5" step="0.05" value="0.20">
           <div class="slider-hint">Low = deterministic, High = creative</div>
         </div>
 
         <div class="control-group">
           <div class="slider-header">
             <label for="sliderTokens">Max New Tokens</label>
-            <span id="valTokens" class="slider-val mono">250</span>
+            <span id="valTokens" class="slider-val mono">512</span>
           </div>
-          <input type="range" id="sliderTokens" min="32" max="512" step="16" value="250">
-          <div class="slider-hint">Maximum output length</div>
+          <input type="range" id="sliderTokens" min="64" max="1024" step="32" value="512">
+          <div class="slider-hint">Maximum output length (512 tokens recommended)</div>
         </div>
 
         <div class="control-group">
           <div class="slider-header">
             <label for="sliderTopP">Top-P (Nucleus)</label>
-            <span id="valTopP" class="slider-val mono">0.80</span>
+            <span id="valTopP" class="slider-val mono">0.85</span>
           </div>
-          <input type="range" id="sliderTopP" min="0.1" max="1.0" step="0.05" value="0.8">
+          <input type="range" id="sliderTopP" min="0.1" max="1.0" step="0.05" value="0.85">
           <div class="slider-hint">Cumulative token sampling pool</div>
         </div>
 
         <div class="control-group">
           <div class="slider-header">
             <label for="sliderRep">Repetition Penalty</label>
-            <span id="valRep" class="slider-val mono">1.20</span>
+            <span id="valRep" class="slider-val mono">1.05</span>
           </div>
-          <input type="range" id="sliderRep" min="1.0" max="1.4" step="0.02" value="1.2">
-          <div class="slider-hint">Penalizes phrase repetition</div>
+          <input type="range" id="sliderRep" min="1.0" max="1.4" step="0.01" value="1.05">
+          <div class="slider-hint">Penalizes phrase repetition (1.05 optimal)</div>
         </div>
       </section>
 

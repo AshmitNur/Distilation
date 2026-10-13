@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnResetParams.addEventListener('click', () => {
     sliderTemp.value = 0.20;
-    sliderTokens.value = 250;
+    sliderTokens.value = 512;
     sliderTopP.value = 0.85;
     sliderRep.value = 1.05;
     updateSliderDisplay();

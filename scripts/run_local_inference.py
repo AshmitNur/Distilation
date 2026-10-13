@@ -95,7 +95,23 @@ def main():
     print(f"      Total Parameters: {total_params:.1f}M")
     print(f"      Memory Allocated: {torch.cuda.memory_allocated() / (1024 ** 2):.1f} MB VRAM")
 
-    def generate(prompt, max_new_tokens=250, temperature=0.3, top_p=0.8, repetition_penalty=1.2, use_lora=True):
+    def clean_sentence_end(text: str) -> str:
+        text = text.strip()
+        if not text:
+            return text
+        if text[-1] in ("।", "?", "!", ".", "\n", '"', "”", "'", "’", ")"):
+            return text
+        terminators = ["।", "?", "!", "\n"]
+        last_idx = -1
+        for term in terminators:
+            idx = text.rfind(term)
+            if idx > last_idx:
+                last_idx = idx
+        if last_idx > 0 and (last_idx >= len(text) * 0.35):
+            return text[:last_idx + 1].strip()
+        return text
+
+    def generate(prompt, max_new_tokens=512, temperature=0.2, top_p=0.85, repetition_penalty=1.05, use_lora=True):
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": prompt},
@@ -122,14 +138,24 @@ def main():
             if attention_mask is not None:
                 attention_mask = attention_mask.to(device)
 
+        eos_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
+        if hasattr(tokenizer, "convert_tokens_to_ids"):
+            im_end = tokenizer.convert_tokens_to_ids("<|im_end|>")
+            if im_end is not None and im_end not in eos_ids:
+                eos_ids.append(im_end)
+            eot = tokenizer.convert_tokens_to_ids("<|endoftext|>")
+            if eot is not None and eot not in eos_ids:
+                eos_ids.append(eot)
+
         gen_kwargs = {
             "input_ids": input_ids,
             "max_new_tokens": max_new_tokens,
-            "temperature": temperature,
+            "temperature": max(0.01, temperature),
             "top_p": top_p,
             "repetition_penalty": repetition_penalty,
-            "do_sample": True,
+            "do_sample": True if temperature > 0.05 else False,
             "pad_token_id": tokenizer.eos_token_id,
+            "eos_token_id": eos_ids if len(eos_ids) > 1 else (eos_ids[0] if eos_ids else None),
         }
         if attention_mask is not None:
             gen_kwargs["attention_mask"] = attention_mask
@@ -142,7 +168,8 @@ def main():
                 out = model.generate(**gen_kwargs)
 
         new_tokens = out[0][input_ids.shape[-1]:]
-        return tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
+        raw_text = tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
+        return clean_sentence_end(raw_text)
 
     # Custom single prompt
     if args.prompt:

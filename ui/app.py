@@ -59,7 +59,11 @@ else:
     MODEL_DISPLAY_PARAMS = "502.8M"
     LOAD_IN_4BIT = False
 
-SYSTEM_PROMPT = "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। ব্যবহারকারীর প্রশ্নের উত্তর সঠিক তথ্যসহ বিস্তারিতভাবে বাংলায় দিন।"
+SYSTEM_PROMPT = (
+    "আপনি একজন বাংলা ভাষায় দক্ষ সহকারী। "
+    "ব্যবহারকারীর প্রশ্নের উত্তর প্রাসঙ্গিক, বস্তুনিষ্ঠ ও সাবলীল বাংলায় দিন। "
+    "সবসময় বাক্য সম্পূর্ণ করুন এবং কোনো অসমাপ্ত বা কাটা বাক্য বলবেন না।"
+)
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 # --- Enhanced Inference Configuration (Shadow Mode) ---
@@ -207,12 +211,40 @@ def _enhanced_generate(
     return None
 
 
+def clean_sentence_end(text: str) -> str:
+    """
+    Prevents abrupt cutoff mid-sentence when token limit is reached.
+    Trims trailing incomplete words back to the last complete sentence punctuation.
+    """
+    text = text.strip()
+    if not text:
+        return text
+
+    # If it already ends with valid sentence-ending punctuation, it is clean
+    if text[-1] in ("।", "?", "!", ".", "\n", '"', "”", "'", "’", ")"):
+        return text
+
+    # Search for the last valid sentence boundary
+    terminators = ["।", "?", "!", "\n"]
+    last_idx = -1
+    for term in terminators:
+        idx = text.rfind(term)
+        if idx > last_idx:
+            last_idx = idx
+
+    # If a sentence boundary exists and preserves at least 35% of the response, trim back to it
+    if last_idx > 0 and (last_idx >= len(text) * 0.35):
+        return text[:last_idx + 1].strip()
+
+    return text
+
+
 def generate_text(
     prompt: str,
-    max_new_tokens: int = 250,
-    temperature: float = 0.3,
-    top_p: float = 0.8,
-    repetition_penalty: float = 1.2,
+    max_new_tokens: int = 512,
+    temperature: float = 0.2,
+    top_p: float = 0.85,
+    repetition_penalty: float = 1.05,
     use_lora: bool = True
 ) -> Dict[str, Any]:
     """
@@ -256,6 +288,16 @@ def generate_text(
         if attention_mask is not None:
             attention_mask = attention_mask.to(device)
 
+    # Resolve all possible EOS token IDs (<|im_end|>=151645, <|endoftext|>=151643)
+    eos_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
+    if hasattr(tokenizer, "convert_tokens_to_ids"):
+        im_end = tokenizer.convert_tokens_to_ids("<|im_end|>")
+        if im_end is not None and im_end not in eos_ids:
+            eos_ids.append(im_end)
+        eot = tokenizer.convert_tokens_to_ids("<|endoftext|>")
+        if eot is not None and eot not in eos_ids:
+            eos_ids.append(eot)
+
     gen_kwargs = {
         "input_ids": input_ids,
         "max_new_tokens": max_new_tokens,
@@ -264,6 +306,7 @@ def generate_text(
         "repetition_penalty": repetition_penalty,
         "do_sample": True if temperature > 0.05 else False,
         "pad_token_id": tokenizer.eos_token_id,
+        "eos_token_id": eos_ids if len(eos_ids) > 1 else (eos_ids[0] if eos_ids else None),
     }
     if attention_mask is not None:
         gen_kwargs["attention_mask"] = attention_mask
@@ -280,10 +323,11 @@ def generate_text(
     new_tokens_tensor = out[0][input_ids.shape[-1]:]
     num_tokens = len(new_tokens_tensor)
     tokens_per_sec = round(num_tokens / max(duration, 0.001), 1)
-    text = tokenizer.decode(new_tokens_tensor, skip_special_tokens=True).strip()
+    raw_text = tokenizer.decode(new_tokens_tensor, skip_special_tokens=True).strip()
+    clean_text = clean_sentence_end(raw_text)
 
     return {
-        "text": text,
+        "text": clean_text,
         "tokens_generated": num_tokens,
         "duration_seconds": round(duration, 2),
         "tokens_per_second": tokens_per_sec,
@@ -306,7 +350,7 @@ app = FastAPI(
 # Request Schemas
 class GenerateRequest(BaseModel):
     prompt: str = Field(..., min_length=1, description="Prompt text (Bengali preferred)")
-    max_new_tokens: int = Field(250, ge=16, le=512)
+    max_new_tokens: int = Field(512, ge=16, le=2048)
     temperature: float = Field(0.2, ge=0.0, le=1.5)
     top_p: float = Field(0.85, ge=0.1, le=1.0)
     repetition_penalty: float = Field(1.05, ge=1.0, le=1.5)
@@ -314,7 +358,7 @@ class GenerateRequest(BaseModel):
 
 class CompareRequest(BaseModel):
     prompt: str = Field(..., min_length=1)
-    max_new_tokens: int = Field(250, ge=16, le=512)
+    max_new_tokens: int = Field(512, ge=16, le=2048)
     temperature: float = Field(0.2, ge=0.0, le=1.5)
     top_p: float = Field(0.85, ge=0.1, le=1.0)
     repetition_penalty: float = Field(1.05, ge=1.0, le=1.5)
