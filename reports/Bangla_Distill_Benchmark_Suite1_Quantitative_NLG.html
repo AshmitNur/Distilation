@@ -174,22 +174,22 @@
       <div class="subtitle">Suite 1: Held-Out Linguistic & Generation Performance</div>
     </div>
     <div class="meta-box">
-      <div><strong>Date:</strong> 2026-10-13 02:28:30</div>
+      <div><strong>Date:</strong> 2026-10-13 20:15:36</div>
       <div><strong>Device:</strong> NVIDIA GeForce RTX 4070 Laptop GPU</div>
-      <div><strong>Sample:</strong> 50 PPL / 25 Gen Records</div>
+      <div><strong>Sample:</strong> 40 PPL / 20 Gen Records</div>
     </div>
   </div>
 
   <div class="grid-4">
     <div class="card">
       <div class="metric-label">Perplexity (PPL)</div>
-      <div class="metric-value">1.12</div>
-      <div class="metric-sub">▼ 60.8% vs Base (2.85)</div>
+      <div class="metric-value">1.85</div>
+      <div class="metric-sub">▼ 28.5% vs Base (2.59)</div>
     </div>
     <div class="card">
       <div class="metric-label">chrF++ Score</div>
-      <div class="metric-value">43.20</div>
-      <div class="metric-sub">▲ +25.45 pts vs Base</div>
+      <div class="metric-value">20.00</div>
+      <div class="metric-sub">▲ +2.56 pts vs Base</div>
     </div>
     <div class="card">
       <div class="metric-label">ROUGE-L F1</div>
@@ -198,7 +198,7 @@
     </div>
     <div class="card">
       <div class="metric-label">Generation Speed</div>
-      <div class="metric-value">13.3</div>
+      <div class="metric-value">6.0</div>
       <div class="metric-sub">Tokens / Sec (GPU FP16)</div>
     </div>
   </div>
@@ -221,38 +221,38 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="tag-base">Vanilla Qwen2.5-0.5B</span></td>
-        <td>490M</td>
-        <td>1.0474</td>
-        <td>2.85</td>
-        <td>17.76</td>
+        <td><span class="tag-base">Vanilla Qwen2.5-3B-Instruct</span></td>
+        <td>3.09B</td>
+        <td>0.9509</td>
+        <td>2.59</td>
+        <td>17.45</td>
         <td>0.00</td>
         <td>0.00</td>
         <td>0.00</td>
-        <td>0.00</td>
-        <td>6549.2 ms</td>
+        <td>0.84</td>
+        <td>23628.3 ms</td>
       </tr>
       <tr>
-        <td><span class="tag-student">Bangla Distill Student (LoRA v2)</span></td>
-        <td><strong>490M</strong></td>
-        <td><strong>0.1099</strong></td>
-        <td><strong>1.12</strong></td>
-        <td><strong>43.20</strong></td>
+        <td><span class="tag-student">Bangla Distill Qwen2.5-3B-Instruct Student</span></td>
+        <td><strong>3.09B</strong></td>
+        <td><strong>0.6147</strong></td>
+        <td><strong>1.85</strong></td>
+        <td><strong>20.00</strong></td>
         <td><strong>0.00</strong></td>
         <td><strong>0.00</strong></td>
         <td><strong>0.00</strong></td>
-        <td><strong>28.68</strong></td>
-        <td><strong>11724.7 ms</strong></td>
+        <td><strong>0.00</strong></td>
+        <td><strong>41959.3 ms</strong></td>
       </tr>
       <tr style="background: #f0fdf4;">
         <td colspan="2"><strong>Improvement / Delta</strong></td>
-        <td><span class="gain-pill">-0.9375</span></td>
-        <td><span class="gain-pill">-60.8%</span></td>
-        <td><span class="gain-pill">+25.45</span></td>
+        <td><span class="gain-pill">-0.3362</span></td>
+        <td><span class="gain-pill">-28.5%</span></td>
+        <td><span class="gain-pill">+2.56</span></td>
         <td><span class="gain-pill">+0.00</span></td>
         <td><span class="gain-pill">+0.00</span></td>
         <td><span class="gain-pill">+0.00</span></td>
-        <td><span class="gain-pill">+28.68</span></td>
+        <td><span class="gain-pill">+-0.84</span></td>
         <td><span style="font-size: 7.2pt; color: #475569;">Comparable</span></td>
       </tr>
     </tbody>
@@ -261,61 +261,63 @@
   <div class="section-title">🔍 Side-by-Side Held-Out Output Analysis</div>
 
   <div class="sample-box">
-    <div class="sample-query bengali">📌 Test Query #1: পরিবেশ — উদাহরণ বিশ্লেষণ কী এবং এটি কেন গুরুত্বপূর্ণ?</div>
+    <div class="sample-query bengali">📌 Test Query #1: বেতার সম্পর্কে আমাকে বিস্তারিত জানান।</div>
     <div class="sample-comp bengali">
       <div class="comp-col">
         <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
-        <div>পরিবেশ আমি অন্যান্য জীবনের মধ্যে আছি। এটি বিশ্লেষণ কোনও ক্ষেত্রেই চাইয়েছিলেন, যেখানে আমি একটি প্রশ্ন থেকে একটি বিশ্লেষণ করতে পারি। এটি কেন গুরুত্বপূর্ণ ছ</div>
+        <div>বেতার একটি খাবার মানে যে একটি গন্তব্য বস্তু থামা হয বেতার করা হয়েছে। এটি বিভিন্ন ধরণের ফসল মাছ, টেক্সটা, শোকো ইত্যাদির মধ্যে থামা হয়ে যায়। 
+
+বেতার সবচেয়ে পরিচালিত হওয়ার জন্য এটি বিভিন্ন রূপে থামা হয়ে যায়।</div>
       </div>
       <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
         <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
-        <div>পরিবেশ-এ উদাহরণ বিশ্লেষণ উন্নত করতে নিয়মিত অনুশীলন করা দরকার। প্রতিটি অনুশীলনের পরে ফলাফল পর্যালোচনা করলে পরবর্তী কাজ আরও নির্ভুলভাবে করা সম্ভব।</div>
+        <div>বেতার হলো একটি খাদ্য যা মৃৎসরণের ফলে গঠিত হয়।  এটি মৃৎসরণের ফলে গঠিত হয়, যা মৃৎসরণের ফলে গঠিত হয়।</div>
       </div>
     </div>
   </div>
 
   <div class="sample-box">
-    <div class="sample-query bengali">📌 Test Query #2: সফটওয়্যার প্রকৌশল — নির্ভুলতা — এই বিষয়ে বিস্তারিত তথ্য দিন।</div>
+    <div class="sample-query bengali">📌 Test Query #2: রামু উপজেলা সম্পর্কে বলুন।</div>
     <div class="sample-comp bengali">
       <div class="comp-col">
         <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
-        <div>এই বিশ্লেষণ আমরা জানি। এটি অন্যদিকে মোট 20 গুগল হিসেবে বিস্তারিত হয়েছে।
-
-1. ইউরোপের অন্যদিকে প্রকৌশল ও নির্ভুলতা ব্যবহার করা হয়েছে।
-
-2. এই বিষয়ে আমরা এ</div>
+        <div>আপনি আমার জানা লাগছে না, কিছু বিশদ তথ্য কি আপনার চাই? রামু উপজেলাটি কোথায় থাকে বা কোনও প্রধান জাতীয় পরগামি থাকে না জানি। আমার প্রচলিত ডেটা এবং পড়া ধারণা থেকে এই উপজেলাটি কখনও পাওনি। আপনার জানা লাগছে কোনও বিশেষ খবর বা ফাইল কি না জানি?</div>
       </div>
       <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
         <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
-        <div>সফটওয়্যার প্রকৌশল-এর নির্ভুলতা বোঝার জন্য প্রথমে মূল তথ্যগুলো শনাক্ত করা হয়। এরপর সেগুলোকে সাজিয়ে ধাপে ধাপে বিশ্লেষণ করা হয় এবং ফলাফল যাচাই কর</div>
+        <div>রামু উপজেলা বাংলাদেশের চট্টগ্রাম জেলার একটি উপজেলা।  এখানে প্রচুর ধান, আলু, গম, এবং মরিচের উৎপাদন হয়।  রামু উপজেলায় প্রাচীন মন্দির, মসজিদ, এবং শিক্ষাপ্রতিষ্ঠান রয়েছে।  এখানকার লোকেরা মূলত কৃষি ও ব্যবসা করে।</div>
       </div>
     </div>
   </div>
 
   <div class="sample-box">
-    <div class="sample-query bengali">📌 Test Query #3: প্রকৌশল — ফলাফল যাচাই নিয়ে আলোচনা করুন।</div>
+    <div class="sample-query bengali">📌 Test Query #3: আমাকে কুড়িগ্রাম সদর উপজেলা সম্পর্কে বিস্তারিত তথ্য শেখান।</div>
     <div class="sample-comp bengali">
       <div class="comp-col">
         <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
-        <div>এটি হয়েছিল একটি অনুমাণু গণিত ক্ষেত্র। এটি মানুষদের সাথে আলোচনা করতে পারে, জিনিস ও সংখ্যাটি সম্পর্কে আলোচনা করতে পারে। এটি একটি সম্পর্কিত গণিত ক্ষেত্র, য</div>
+        <div>কুড়িগ্রাম সদর উপজেলাটি বিভাজন করে আহমেদ নগর উপজেলায় অবস্থিত। এটি বিলাগাইয়া উপজেলার অংশ হলেও, এই উপজেলাটি বিলাগাইয়া উপজেলার প্রধান সদর উপজেলা।
+
+এটি মোয়াজাম নগর পরিবারের অন্তর্ভুক্ত ছিল এবং আজ মোয়াজাম নগর পরিবারের একটি উপজেলা।</div>
       </div>
       <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
         <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
-        <div>প্রকৌশল-এ ফলাফল যাচাই প্রয়োগ করার জন্য প্রথমে মূল তথ্য সংগ্রহ করা হয়। এরপর সেগুলো সুনির্দিষ্ট করার ধাপ গুরুত্বপূর্ণ অনুশীলন করা হয়।</div>
+        <div>কুড়িগ্রাম সদর উপজেলা বাংলাদেশের কুড়িগ্রাম জেলার একটি প্রধান উপজেলা।  এখানে প্রচুর কৃষি, চাষাবাদ এবং শিল্প কারখানা রয়েছে।  উপজেলাটির প্রধান আকর্ষণ হলো কুড়িগ্রাম শহর, যা জেলার সবচেয়ে বড় শহর হিসেবে পরিগণিত।</div>
       </div>
     </div>
   </div>
 
   <div class="sample-box">
-    <div class="sample-query bengali">📌 Test Query #4: অ্যালগরিদম — তথ্য বিশ্লেষণ সম্পর্কে একটি তথ্যবহুল প্রবন্ধ লিখুন।</div>
+    <div class="sample-query bengali">📌 Test Query #4: গাইবান্ধা জেলা সম্পর্কে বিস্তারিত লিখুন।</div>
     <div class="sample-comp bengali">
       <div class="comp-col">
         <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
-        <div>এই অ্যালগরিদম আছে একটি তথ্য বিশ্লেষণ সম্পর্কে একটি তথ্য বিশ্লেষণ করা হয়। এটি মৌসুম ও চিন্তা থেকে গোড়ার সাথে জানান। এটি একটি প্রদত্ত উচ্চতার সম্মান ও সম্প</div>
+        <div>গাইবান্ধা জেলা বাঙালি গাইবান্ধা শহরের মধ্যে একটি, আরও বিশদভাবে বলা যায় গাইবান্ধা নগর জেলা। এই জেলাটি বাংলাদেশের মধ্যভাগে অবস্থিত।
+
+এই জেলার কেন্দ্র গাইবান্ধা শহর। এই শহরটি বাংলাদেশের প্রায় ৩৫০০ কিলোমিটার বর্তমান জেলায় অবস্থিত।</div>
       </div>
       <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
         <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
-        <div>অ্যালগরিদম-এর তথ্য বিশ্লেষণ বাস্তব অনুশীলনের মাধ্যমে শেখানো যায়। প্রতিটি অনুশীলনের পর্যবেক্ষণ করলে ফলাফলের সামঞ্জস্য পর্যালোচনা করা যায়।</div>
+        <div>গাইবান্ধা জেলা ভারতের মধ্যপ্রদেশ রাজ্যের একটি প্রশাসনিক অঞ্চল। এটি মধ্যপ্রদেশের দক্ষিণ-পশ্চিমে অবস্থিত একটি জেলা। গাইবান্ধা শহর জেলাটির প্রধান শহর এবং প্রশাসনিক কেন্দ্র। এখানে বিভিন্ন প্রাচীন মন্দির, মসজিদ ও বৌদ্ধবিহার রয়েছে।</div>
       </div>
     </div>
   </div>

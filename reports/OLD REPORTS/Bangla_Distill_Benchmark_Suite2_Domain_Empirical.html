@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangla Distill: Domain-Specific Empirical Benchmark Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.45;
+      font-size: 8.2pt;
+      margin: 0; padding: 0;
+    }
+    .bengali { font-family: 'Noto Sans Bengali', 'Inter', sans-serif; }
+    .header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .title-block h1 {
+      font-size: 14pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 2px 0;
+    }
+    .title-block .subtitle {
+      font-size: 8pt;
+      color: #059669;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 9px;
+    }
+    .metric-value {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-sub { font-size: 7pt; color: #16a34a; font-weight: 600; }
+    .metric-label { font-size: 7pt; text-transform: uppercase; color: #64748b; font-weight: 600; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 7.8pt;
+    }
+    th {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 7.2pt;
+    }
+    td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .domain-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 9px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .domain-title {
+      font-weight: 700;
+      font-size: 8.5pt;
+      color: #0f172a;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .domain-prompt {
+      font-size: 7.8pt;
+      color: #0369a1;
+      background: #f0f9ff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 7.4pt;
+    }
+    .box-base {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px;
+    }
+    .box-student {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 4px;
+      padding: 6px;
+    }
+    .box-title {
+      font-weight: 700;
+      font-size: 6.8pt;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .score-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 6.8pt;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title-block">
+      <h1>Bangla Distill — Empirical Domain Benchmark</h1>
+      <div class="subtitle">Suite 2: Multi-Domain Knowledge & Qualitative Stress-Test</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 7pt; color: #64748b; text-align: right;">
+      <div><strong>Date:</strong> 2026-10-13 02:19:50</div>
+      <div><strong>Evaluated Domains:</strong> 5 Core Areas</div>
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="metric-label">Holistic Score (1-5)</div>
+      <div class="metric-value">3.62 / 5.0</div>
+      <div class="metric-sub">▲ Base: 3.46 (+0.16)</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">Fluency & Grammar</div>
+      <div class="metric-value">4.20 / 5.0</div>
+      <div class="metric-sub">▲ Base: 4.20</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">Orthography Integrity</div>
+      <div class="metric-value">4.90 / 5.0</div>
+      <div class="metric-sub">▲ Zero Conjunct Corruption</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">Factuality & Relevance</div>
+      <div class="metric-value">2.32 / 5.0</div>
+      <div class="metric-sub">▲ Base: 2.08</div>
+    </div>
+  </div>
+
+  <div style="font-weight: 700; font-size: 9pt; margin: 8px 0 4px 0;">📊 Domain-by-Domain Performance Comparison</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Domain Category</th>
+        <th>Vanilla Fluency</th>
+        <th>Student Fluency</th>
+        <th>Vanilla Orthography</th>
+        <th>Student Orthography</th>
+        <th>Vanilla Overall</th>
+        <th>Student Overall</th>
+        <th>Delta Gain</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><strong>History & Liberation War</strong></td>
+        <td>4.2</td>
+        <td><strong style="color: #15803d;">4.2</strong></td>
+        <td>4.9</td>
+        <td><strong style="color: #15803d;">4.9</strong></td>
+        <td>3.9</td>
+        <td><strong style="color: #15803d;">3.9</strong></td>
+        <td><span style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 3px; font-weight: 700;">+0.0</span></td>
+      </tr>
+
+      <tr>
+        <td><strong>Science & Artificial Intelligence</strong></td>
+        <td>4.2</td>
+        <td><strong style="color: #15803d;">4.2</strong></td>
+        <td>3.5</td>
+        <td><strong style="color: #15803d;">4.9</strong></td>
+        <td>3.0</td>
+        <td><strong style="color: #15803d;">3.4</strong></td>
+        <td><span style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 3px; font-weight: 700;">+0.4</span></td>
+      </tr>
+
+      <tr>
+        <td><strong>Geography, Ecology & Wildlife</strong></td>
+        <td>4.2</td>
+        <td><strong style="color: #15803d;">4.2</strong></td>
+        <td>4.9</td>
+        <td><strong style="color: #15803d;">4.9</strong></td>
+        <td>3.4</td>
+        <td><strong style="color: #15803d;">3.6</strong></td>
+        <td><span style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 3px; font-weight: 700;">+0.2</span></td>
+      </tr>
+
+      <tr>
+        <td><strong>Education, Health & Productivity</strong></td>
+        <td>4.2</td>
+        <td><strong style="color: #15803d;">4.2</strong></td>
+        <td>4.9</td>
+        <td><strong style="color: #15803d;">4.9</strong></td>
+        <td>3.4</td>
+        <td><strong style="color: #15803d;">3.6</strong></td>
+        <td><span style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 3px; font-weight: 700;">+0.2</span></td>
+      </tr>
+
+      <tr>
+        <td><strong>Literature & Linguistic Culture</strong></td>
+        <td>4.2</td>
+        <td><strong style="color: #15803d;">4.2</strong></td>
+        <td>4.9</td>
+        <td><strong style="color: #15803d;">4.9</strong></td>
+        <td>3.6</td>
+        <td><strong style="color: #15803d;">3.6</strong></td>
+        <td><span style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 3px; font-weight: 700;">+0.0</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div style="font-weight: 700; font-size: 9pt; margin: 10px 0 6px 0;">🔬 Qualitative Examination of Domain Generations</div>
+
+  <div class="domain-card">
+    <div class="domain-title">
+      <div>Domain 1: History & Liberation War (ইতিহাস ও মুক্তিযুদ্ধ)</div>
+      <div>
+        <span class="score-badge" style="background: #f1f5f9; color: #475569;">Base: 3.9/5</span>
+        <span class="score-badge" style="background: #dcfce7; color: #15803d;">Student: 3.9/5</span>
+      </div>
+    </div>
+    <div class="domain-prompt bengali"><strong>Prompt:</strong> বাংলাদেশের ইতিহাস ও ১৯৭১ সালের মহান মুক্তিযুদ্ধ সম্পর্কে বিস্তারিত লিখুন।</div>
+    <div class="comp-grid bengali">
+      <div class="box-base">
+        <div class="box-title" style="color: #64748b;">Vanilla Baseline (8.05s, 180 tok):</div>
+        <div>এই জগতে আমরা বাংলাদেশের ইতিহাসের অধিকাংশ এবং মহান মুক্তিযুদ্ধের প্রথম গণ্ড প্রকাশ করি।
+
+১৯৭১ সালের মহান মুক্তিযুদ্ধের প্রথম গণ্ড হয়েছিল। এটি একটি মহান মুক্তিযুদ্ধের মধ্�</div>
+      </div>
+      <div class="box-student">
+        <div class="box-title" style="color: #15803d;">Distilled Student (13.72s, 180 tok):</div>
+        <div>বাংলাদেশের ইতিহাস ও মহান মুক্তিযুদ্ধ বাংলাদেশের অধিকাংশ আইন-অর্থনৈতিক গ্রন্থগুলোর মধ্যে একটি অঙ্গরাজ্য ছিল। এটি বাংলাদেশের সবচেয়ে শুধুমাত্র স্বাধীনতা প্রবাহ করেছিল, বরং �</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">
+      <div>Domain 2: Science & Artificial Intelligence (বিজ্ঞান ও কৃত্রিম বুদ্ধিমত্তা)</div>
+      <div>
+        <span class="score-badge" style="background: #f1f5f9; color: #475569;">Base: 3.0/5</span>
+        <span class="score-badge" style="background: #dcfce7; color: #15803d;">Student: 3.4/5</span>
+      </div>
+    </div>
+    <div class="domain-prompt bengali"><strong>Prompt:</strong> কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence) কী এবং এটি কীভাবে আধুনিক বিশ্বে কাজ করে?</div>
+    <div class="comp-grid bengali">
+      <div class="box-base">
+        <div class="box-title" style="color: #64748b;">Vanilla Baseline (7.13s, 180 tok):</div>
+        <div>কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence, AI) হল একটি অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে। এটি একটি ব্যবহারকারী ও ব্যবহারকারী সাথে চাইতেছে, যা এই অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে।
+
+AI �</div>
+      </div>
+      <div class="box-student">
+        <div class="box-title" style="color: #15803d;">Distilled Student (15.45s, 180 tok):</div>
+        <div>কৃত্রিম বুদ্ধিমত্তা, বা অ্যালগ্রাফিক্স হলো একটি গণিতীয় বিশ্ববিদ্যালয় যা ১৯৩৩ সালে প্রচলিত হয়েছিল। এই বিশ্ববিদ্যালয়টি বিশ্বের সবচেয়ে বড় ও সম্পূর্ণ বিশ্ববিদ্যালয</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">
+      <div>Domain 3: Geography, Ecology & Wildlife (ভূগোল ও সুন্দরবনের জীববৈচিত্র্য)</div>
+      <div>
+        <span class="score-badge" style="background: #f1f5f9; color: #475569;">Base: 3.4/5</span>
+        <span class="score-badge" style="background: #dcfce7; color: #15803d;">Student: 3.6/5</span>
+      </div>
+    </div>
+    <div class="domain-prompt bengali"><strong>Prompt:</strong> সুন্দরবনের পরিবেশগত গুরুত্ব এবং এর রয়েল বেঙ্গল টাইগার সংরক্ষণের প্রয়োজনীয়তা ব্যাখ্যা করুন।</div>
+    <div class="comp-grid bengali">
+      <div class="box-base">
+        <div class="box-title" style="color: #64748b;">Vanilla Baseline (7.05s, 180 tok):</div>
+        <div>এই আমি একটি বাংলা শিল্পের অনুষ্ঠানে চাই। আমি একটি বাংলা শিল্পের মধ্যে আপনি একটি সম্পূর্ণ জীবনের প্রশ্ন থেকে একটি বিশেষ প্রয়োজনীয় সাহায্য করতে পারি। আমি আপনি একটি বাংলা শিল</div>
+      </div>
+      <div class="box-student">
+        <div class="box-title" style="color: #15803d;">Distilled Student (15.93s, 180 tok):</div>
+        <div>সুন্দরবনের পরিবেশগত গুরুত্ব হল সম্পূর্ণ শৈলীর অধ্যায়, মৌখিক ও আন্তর্জাতিক সুন্দরবনের পরিচালনা, সম্পূর্ণ শৈলীর প্রতিফলন এবং সম্পূর্ণ শৈলীর প্রতিফলনের স্থান স্থাপন ক</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">
+      <div>Domain 4: Education, Health & Productivity (শিক্ষা, স্বাস্থ্য ও দৈনন্দিন নিয়ম)</div>
+      <div>
+        <span class="score-badge" style="background: #f1f5f9; color: #475569;">Base: 3.4/5</span>
+        <span class="score-badge" style="background: #dcfce7; color: #15803d;">Student: 3.6/5</span>
+      </div>
+    </div>
+    <div class="domain-prompt bengali"><strong>Prompt:</strong> একজন শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য তিনটি অত্যন্ত প্রয়োজনীয় নিয়ম কী কী?</div>
+    <div class="comp-grid bengali">
+      <div class="box-base">
+        <div class="box-title" style="color: #64748b;">Vanilla Baseline (7.29s, 180 tok):</div>
+        <div>1. আপনার প্রয়োজনীয় সুস্থ শরীর: আপনার সুস্থ শরীর হল আপনার সুস্থ শরীর এবং আপনার সুস্থ শরীর ছিলেন।
+
+2. পড়াশোনায় মনোযোগ: পড়াশোনায় মনোযোগ হল আপনার সুস্থ শর�</div>
+      </div>
+      <div class="box-student">
+        <div class="box-title" style="color: #15803d;">Distilled Student (14.55s, 180 tok):</div>
+        <div>শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য আধুনিক ইতিহাসে একটি গুরুত্বপূর্ণ ঘটনা ছিল বাংলাদেশের প্রথম বিখ্যাত শিক্ষার্থী শৈলী। ১৯৫৩ সালে শিক্ষার্থী</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-title">
+      <div>Domain 5: Literature & Linguistic Culture (সাহিত্য ও মাতৃভাষা)</div>
+      <div>
+        <span class="score-badge" style="background: #f1f5f9; color: #475569;">Base: 3.6/5</span>
+        <span class="score-badge" style="background: #dcfce7; color: #15803d;">Student: 3.6/5</span>
+      </div>
+    </div>
+    <div class="domain-prompt bengali"><strong>Prompt:</strong> বিশ্বকবি রবীন্দ্রনাথ ঠাকুর এবং বাংলা সাহিত্যে তাঁর অবদান সম্পর্কে আলোচনা করুন।</div>
+    <div class="comp-grid bengali">
+      <div class="box-base">
+        <div class="box-title" style="color: #64748b;">Vanilla Baseline (7.43s, 180 tok):</div>
+        <div>বিশ্বকবি রবীন্দ্রনাথ (1826-1904) একটি মহাসাগর ও জয়নামৃত ছিল। তিনি চারটি বাংলা সাহিত্যের অবদান এবং সাধারণ সাহিত্যের অবদানগুলি দেখা যায়।
+
+1. সাহিত্য: রবীন্দ্রনাথ একটি মহাসাগর �</div>
+      </div>
+      <div class="box-student">
+        <div class="box-title" style="color: #15803d;">Distilled Student (15.73s, 180 tok):</div>
+        <div>বিশ্বকবি রবীন্দ্রনাথ ঠাকুর (১৩ জুন ১৮৫৩ – ১৩ জুন ১৮৯২) ছিলেন ইতালীয় গণিতবিদ, চিত্রকর, ও সঙ্গীতকার। তিনি প্রাচীন ইতালীয় গণিতের অধ্যাপক ছিলেন। তাঁর গবেষণা গণিতে</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

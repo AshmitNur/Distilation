@@ -31,7 +31,6 @@ from pdf_generator import html_to_pdf
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
 
 def _resolve_model_dir(name: str) -> str:
     p1 = os.path.join(PROJECT_ROOT, "models", name)
@@ -40,8 +39,26 @@ def _resolve_model_dir(name: str) -> str:
     if os.path.exists(p2): return p2
     return p1
 
+_3B = _resolve_model_dir("bangla_distill_3b_adapter")
 _UNSLOTH = _resolve_model_dir("bangla_distill_unsloth_adapter")
-ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else _resolve_model_dir("final-lora-adapter-v2")
+_V2 = _resolve_model_dir("final-lora-adapter-v2")
+
+if os.path.exists(_3B):
+    ADAPTER_PATH = _3B
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+    USE_4BIT = True
+    MODEL_LABEL = "Qwen2.5-3B-Instruct"
+elif os.path.exists(_UNSLOTH):
+    ADAPTER_PATH = _UNSLOTH
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+else:
+    ADAPTER_PATH = _V2
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -51,6 +68,7 @@ DTYPE = torch.float16 if DEVICE == "cuda" else torch.float32
 def profile_efficiency():
     print("=" * 70)
     print("🇧🇩 BANGLA DISTILL — BENCHMARK SUITE 3: EDGE HARDWARE EFFICIENCY")
+    print(f"[*] Target Architecture: {MODEL_LABEL} ({'4-bit NF4' if USE_4BIT else 'FP16'})")
     print("=" * 70)
     
     if torch.cuda.is_available():
@@ -66,13 +84,27 @@ def profile_efficiency():
     
     # 1. Profile Model Loading & Weights
     t0 = time.time()
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_NAME, trust_remote_code=True)
-    base_model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=DTYPE,
-        device_map=DEVICE,
-        trust_remote_code=True
-    )
+    tokenizer = AutoTokenizer.from_pretrained(ADAPTER_PATH if os.path.exists(ADAPTER_PATH) else BASE_MODEL_NAME, trust_remote_code=True)
+    if USE_4BIT and DEVICE == "cuda":
+        from transformers import BitsAndBytesConfig
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16
+        )
+        base_model = AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            quantization_config=bnb_config,
+            device_map="cuda",
+            trust_remote_code=True
+        )
+    else:
+        base_model = AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            torch_dtype=DTYPE,
+            device_map=DEVICE,
+            trust_remote_code=True
+        )
     t_base_load = time.time() - t0
     base_vram = torch.cuda.memory_allocated() / (1024**2) if torch.cuda.is_available() else 0
     
@@ -159,10 +191,12 @@ def profile_efficiency():
         print(f"    Generate {glen:3d} tokens -> {tok_sec:.1f} tok/s | Peak VRAM: {peak_vram:.1f} MB")
         
     # 4. Storage & Efficiency Comparison Matrix vs Frontier Teachers
+    param_count_b = "3.09B" if "3B" in MODEL_LABEL else "0.49B"
+    weight_desc = f"{student_vram/1024:.2f} GB (NF4 base + {adapter_size_mb:.1f} MB LoRA)" if USE_4BIT else f"1.05 GB base + {adapter_size_mb:.1f} MB LoRA"
     teacher_specs = {
         "Gemma-2-9B-IT": {"params": "9.2B", "weights_gb": 18.4, "min_vram_fp16": 19.5, "speed_tps": 22.0},
         "Qwen-3.5-9B": {"params": "9.0B", "weights_gb": 18.0, "min_vram_fp16": 19.0, "speed_tps": 23.5},
-        "Bangla Distill Student": {"params": "0.49B", "weights_gb": 1.05, "adapter_mb": adapter_size_mb, "min_vram_fp16": student_vram / 1024, "speed_tps": throughput_results[-1]["tokens_per_second"]}
+        "Bangla Distill Student": {"params": param_count_b, "weights_gb": round(student_vram / 1024, 2), "adapter_mb": adapter_size_mb, "min_vram_fp16": round(student_vram / 1024, 2), "speed_tps": throughput_results[-1]["tokens_per_second"]}
     }
     
     # Save JSON results
@@ -361,10 +395,10 @@ def profile_efficiency():
         <td><span style="color: #dc2626; font-weight: 600;">Requires Cloud / Server GPU</span></td>
       </tr>
       <tr style="background: #fdf4ff;">
-        <td><strong style="color: #7c3aed;">Bangla Distill Student (0.5B + LoRA)</strong></td>
-        <td><strong>0.49 Billion</strong></td>
-        <td><strong>1.05 GB base + 35 MB</strong></td>
-        <td><strong>~1.4 GB VRAM</strong></td>
+        <td><strong style="color: #7c3aed;">Bangla Distill Student ({MODEL_LABEL} + LoRA)</strong></td>
+        <td><strong>{param_count_b}</strong></td>
+        <td><strong>{weight_desc}</strong></td>
+        <td><strong>~{student_vram/1024:.2f} GB VRAM</strong></td>
         <td><strong>{fastest_tps:.1f} tok/s</strong></td>
         <td><span style="color: #16a34a; font-weight: 700;">✅ Runs on Consumer GPU & Edge</span></td>
       </tr>

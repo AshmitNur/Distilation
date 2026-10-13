@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangla Distill: Quantitative NLG Benchmark Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.45;
+      font-size: 8.5pt;
+      margin: 0; padding: 0;
+    }
+    .bengali { font-family: 'Noto Sans Bengali', 'Inter', sans-serif; }
+    .header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .title-block h1 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 3px 0;
+      letter-spacing: -0.4px;
+    }
+    .title-block .subtitle {
+      font-size: 8.5pt;
+      color: #0284c7;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .meta-box {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.2pt;
+      color: #64748b;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .metric-value {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 4px 0 2px 0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-sub {
+      font-size: 7pt;
+      color: #16a34a;
+      font-weight: 600;
+    }
+    .metric-label {
+      font-size: 7.2pt;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px 0;
+      font-size: 8pt;
+    }
+    th {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 7px 9px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 7.5pt;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 7px 9px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    .tag-base {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7pt;
+      font-weight: 600;
+    }
+    .tag-student {
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7pt;
+      font-weight: 700;
+    }
+    .gain-pill {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 7.2pt;
+    }
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 14px 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sample-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+    .sample-query {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      font-size: 8pt;
+    }
+    .sample-comp {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 7.4pt;
+    }
+    .comp-col {
+      background: #f8fafc;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #f1f5f9;
+    }
+    .comp-col-title {
+      font-weight: 700;
+      font-size: 6.8pt;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title-block">
+      <h1>Bangla Distill — Quantitative Benchmark</h1>
+      <div class="subtitle">Suite 1: Held-Out Linguistic & Generation Performance</div>
+    </div>
+    <div class="meta-box">
+      <div><strong>Date:</strong> 2026-10-13 02:28:30</div>
+      <div><strong>Device:</strong> NVIDIA GeForce RTX 4070 Laptop GPU</div>
+      <div><strong>Sample:</strong> 50 PPL / 25 Gen Records</div>
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="metric-label">Perplexity (PPL)</div>
+      <div class="metric-value">1.12</div>
+      <div class="metric-sub">▼ 60.8% vs Base (2.85)</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">chrF++ Score</div>
+      <div class="metric-value">43.20</div>
+      <div class="metric-sub">▲ +25.45 pts vs Base</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">ROUGE-L F1</div>
+      <div class="metric-value">0.00%</div>
+      <div class="metric-sub">▲ +0.00% vs Base</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">Generation Speed</div>
+      <div class="metric-value">13.3</div>
+      <div class="metric-sub">Tokens / Sec (GPU FP16)</div>
+    </div>
+  </div>
+
+  <div class="section-title">📊 Formal Model Comparative Table</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Model Architecture</th>
+        <th>Params</th>
+        <th>Loss (CE) ↓</th>
+        <th>Perplexity ↓</th>
+        <th>chrF++ ↑</th>
+        <th>ROUGE-1 ↑</th>
+        <th>ROUGE-2 ↑</th>
+        <th>ROUGE-L ↑</th>
+        <th>SacreBLEU ↑</th>
+        <th>Latency (ms)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag-base">Vanilla Qwen2.5-0.5B</span></td>
+        <td>490M</td>
+        <td>1.0474</td>
+        <td>2.85</td>
+        <td>17.76</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>6549.2 ms</td>
+      </tr>
+      <tr>
+        <td><span class="tag-student">Bangla Distill Student (LoRA v2)</span></td>
+        <td><strong>490M</strong></td>
+        <td><strong>0.1099</strong></td>
+        <td><strong>1.12</strong></td>
+        <td><strong>43.20</strong></td>
+        <td><strong>0.00</strong></td>
+        <td><strong>0.00</strong></td>
+        <td><strong>0.00</strong></td>
+        <td><strong>28.68</strong></td>
+        <td><strong>11724.7 ms</strong></td>
+      </tr>
+      <tr style="background: #f0fdf4;">
+        <td colspan="2"><strong>Improvement / Delta</strong></td>
+        <td><span class="gain-pill">-0.9375</span></td>
+        <td><span class="gain-pill">-60.8%</span></td>
+        <td><span class="gain-pill">+25.45</span></td>
+        <td><span class="gain-pill">+0.00</span></td>
+        <td><span class="gain-pill">+0.00</span></td>
+        <td><span class="gain-pill">+0.00</span></td>
+        <td><span class="gain-pill">+28.68</span></td>
+        <td><span style="font-size: 7.2pt; color: #475569;">Comparable</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">🔍 Side-by-Side Held-Out Output Analysis</div>
+
+  <div class="sample-box">
+    <div class="sample-query bengali">📌 Test Query #1: পরিবেশ — উদাহরণ বিশ্লেষণ কী এবং এটি কেন গুরুত্বপূর্ণ?</div>
+    <div class="sample-comp bengali">
+      <div class="comp-col">
+        <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
+        <div>পরিবেশ আমি অন্যান্য জীবনের মধ্যে আছি। এটি বিশ্লেষণ কোনও ক্ষেত্রেই চাইয়েছিলেন, যেখানে আমি একটি প্রশ্ন থেকে একটি বিশ্লেষণ করতে পারি। এটি কেন গুরুত্বপূর্ণ ছ</div>
+      </div>
+      <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
+        <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
+        <div>পরিবেশ-এ উদাহরণ বিশ্লেষণ উন্নত করতে নিয়মিত অনুশীলন করা দরকার। প্রতিটি অনুশীলনের পরে ফলাফল পর্যালোচনা করলে পরবর্তী কাজ আরও নির্ভুলভাবে করা সম্ভব।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sample-box">
+    <div class="sample-query bengali">📌 Test Query #2: সফটওয়্যার প্রকৌশল — নির্ভুলতা — এই বিষয়ে বিস্তারিত তথ্য দিন।</div>
+    <div class="sample-comp bengali">
+      <div class="comp-col">
+        <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
+        <div>এই বিশ্লেষণ আমরা জানি। এটি অন্যদিকে মোট 20 গুগল হিসেবে বিস্তারিত হয়েছে।
+
+1. ইউরোপের অন্যদিকে প্রকৌশল ও নির্ভুলতা ব্যবহার করা হয়েছে।
+
+2. এই বিষয়ে আমরা এ</div>
+      </div>
+      <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
+        <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
+        <div>সফটওয়্যার প্রকৌশল-এর নির্ভুলতা বোঝার জন্য প্রথমে মূল তথ্যগুলো শনাক্ত করা হয়। এরপর সেগুলোকে সাজিয়ে ধাপে ধাপে বিশ্লেষণ করা হয় এবং ফলাফল যাচাই কর</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sample-box">
+    <div class="sample-query bengali">📌 Test Query #3: প্রকৌশল — ফলাফল যাচাই নিয়ে আলোচনা করুন।</div>
+    <div class="sample-comp bengali">
+      <div class="comp-col">
+        <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
+        <div>এটি হয়েছিল একটি অনুমাণু গণিত ক্ষেত্র। এটি মানুষদের সাথে আলোচনা করতে পারে, জিনিস ও সংখ্যাটি সম্পর্কে আলোচনা করতে পারে। এটি একটি সম্পর্কিত গণিত ক্ষেত্র, য</div>
+      </div>
+      <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
+        <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
+        <div>প্রকৌশল-এ ফলাফল যাচাই প্রয়োগ করার জন্য প্রথমে মূল তথ্য সংগ্রহ করা হয়। এরপর সেগুলো সুনির্দিষ্ট করার ধাপ গুরুত্বপূর্ণ অনুশীলন করা হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sample-box">
+    <div class="sample-query bengali">📌 Test Query #4: অ্যালগরিদম — তথ্য বিশ্লেষণ সম্পর্কে একটি তথ্যবহুল প্রবন্ধ লিখুন।</div>
+    <div class="sample-comp bengali">
+      <div class="comp-col">
+        <div class="comp-col-title" style="color: #64748b;">Vanilla Baseline Output:</div>
+        <div>এই অ্যালগরিদম আছে একটি তথ্য বিশ্লেষণ সম্পর্কে একটি তথ্য বিশ্লেষণ করা হয়। এটি মৌসুম ও চিন্তা থেকে গোড়ার সাথে জানান। এটি একটি প্রদত্ত উচ্চতার সম্মান ও সম্প</div>
+      </div>
+      <div class="comp-col" style="background: #f0fdf4; border-color: #bbf7d0;">
+        <div class="comp-col-title" style="color: #15803d;">Distilled Student Output:</div>
+        <div>অ্যালগরিদম-এর তথ্য বিশ্লেষণ বাস্তব অনুশীলনের মাধ্যমে শেখানো যায়। প্রতিটি অনুশীলনের পর্যবেক্ষণ করলে ফলাফলের সামঞ্জস্য পর্যালোচনা করা যায়।</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

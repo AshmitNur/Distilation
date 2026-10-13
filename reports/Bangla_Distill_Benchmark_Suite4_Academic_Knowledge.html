@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangla Distill: Academic Bengali Benchmark Report (BnMMLU, BLUCK, BanglaMATH)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.42;
+      font-size: 8pt;
+      margin: 0; padding: 0;
+    }
+    .bengali { font-family: 'Noto Sans Bengali', 'Inter', sans-serif; }
+    .header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .title-block h1 {
+      font-size: 14pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 3px 0;
+      letter-spacing: -0.4px;
+    }
+    .title-block .subtitle {
+      font-size: 8pt;
+      color: #0284c7;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .metric-value {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 3px 0 1px 0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-sub {
+      font-size: 6.8pt;
+      color: #16a34a;
+      font-weight: 600;
+    }
+    .metric-label {
+      font-size: 7pt;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 14px 0;
+      font-size: 7.8pt;
+    }
+    th {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 7.2pt;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .gain-pill {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 7pt;
+    }
+    .badge-correct {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 6.8pt;
+    }
+    .badge-incorrect {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 6.8pt;
+    }
+    .qa-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 8px;
+      margin-bottom: 8px;
+      page-break-inside: avoid;
+    }
+    .qa-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      font-weight: 700;
+      font-size: 7.8pt;
+    }
+    .qa-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 5px;
+      font-size: 7.2pt;
+    }
+    .pane-base {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px;
+    }
+    .pane-student {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 4px;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title-block">
+      <h1>Bangla Distill — Robust Academic Benchmark</h1>
+      <div class="subtitle">Suite 4: BnMMLU • BLUCK Cultural Knowledge • BanglaMATH • Comprehension</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 7pt; color: #64748b; text-align: right;">
+      <div><strong>Date:</strong> 2026-10-13 20:45:18</div>
+      <div><strong>Model:</strong> Qwen2.5-3B-Instruct (4-bit NF4)</div>
+      <div><strong>Evaluation Batteries:</strong> 24 Academic Standards</div>
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="metric-label">Overall Academic Acc</div>
+      <div class="metric-value">62.5%</div>
+      <div class="metric-sub">▲ +-8.3% vs Base (70.8%)</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">BLUCK (Culture & Idioms)</div>
+      <div class="metric-value">62.5%</div>
+      <div class="metric-sub">▲ +12.5% vs Base</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">BnMMLU (STEM/History)</div>
+      <div class="metric-value">62.5%</div>
+      <div class="metric-sub">▲ +-12.5% vs Base</div>
+    </div>
+    <div class="card">
+      <div class="metric-label">BanglaMATH Reasoning</div>
+      <div class="metric-value">25.0%</div>
+      <div class="metric-sub">▲ +-50.0% vs Base</div>
+    </div>
+  </div>
+
+  <div style="font-weight: 700; font-size: 8.8pt; margin: 6px 0 4px 0;">📊 Academic Subcategory Evaluation Matrix</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Benchmark Category</th>
+        <th>Test Scope</th>
+        <th>Sample Size</th>
+        <th>Vanilla Base Accuracy</th>
+        <th>Distilled Student Accuracy</th>
+        <th>Performance Gain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>BnMMLU Battery</strong></td>
+        <td>STEM (CS, Physics, Biology), 1971 War, Constitution, Geography</td>
+        <td>8 Items</td>
+        <td>75.0% (6/8)</td>
+        <td><strong style="color: #15803d;">62.5% (5/8)</strong></td>
+        <td><span class="gain-pill">+-12.5%</span></td>
+      </tr>
+      <tr>
+        <td><strong>BLUCK Battery</strong></td>
+        <td>Bengali Idioms (বাগধারা), Proverbs (প্রবাদ), Tagore, Nazrul, Grammar</td>
+        <td>8 Items</td>
+        <td>50.0% (4/8)</td>
+        <td><strong style="color: #15803d;">62.5% (5/8)</strong></td>
+        <td><span class="gain-pill">+12.5%</span></td>
+      </tr>
+      <tr>
+        <td><strong>BanglaMATH Battery</strong></td>
+        <td>Profit/Loss, Ratio & Age, Unitary Method, Geometry in Bengali</td>
+        <td>4 Items</td>
+        <td>75.0% (3/4)</td>
+        <td><strong style="color: #15803d;">25.0% (1/4)</strong></td>
+        <td><span class="gain-pill">+-50.0%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Reading Comprehension</strong></td>
+        <td>Language Movement, Padma Bridge, Satellite-1, Bengali Script (QuAD style)</td>
+        <td>4 Items</td>
+        <td>100.0% (4/4)</td>
+        <td><strong style="color: #15803d;">100.0% (4/4)</strong></td>
+        <td><span class="gain-pill">+0.0%</span></td>
+      </tr>
+      <tr style="background: #f0fdf4;">
+        <td colspan="2"><strong>Comprehensive Academic Benchmark Aggregate</strong></td>
+        <td><strong>24 Items</strong></td>
+        <td><strong>70.8% (17/24)</strong></td>
+        <td><strong style="color: #15803d; font-size: 8.5pt;">62.5% (15/24)</strong></td>
+        <td><span class="gain-pill" style="font-size: 8pt;">+-8.3%</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="font-weight: 700; font-size: 8.8pt; margin: 10px 0 6px 0;">🔬 Qualitative Benchmark Audit: Head-to-Head Answers</div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#1. [BnMMLU (Computer Science)] কম্পিউটারে বাইনারি পদ্ধতিতে '১০১০' (1010) এর দশমিক (Decimal) মান কত?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+'১০১০' (1010) বাইনারি মানটি দশমিক মান হিসাবে যৌণ করার জন্য, আমরা এটি একটি গুণ গুণ করার পদক্ষেপ প্রভাবিত করে যায়। যেমন, এটি একটি গুণ গুণ করার পদক্ষেপ প্রভাবিত করে যায়:</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>কম্পিউটারে বাইনারি পদ্ধতিতে '১০১০' (1010) এর দশমিক (Decimal) মান হল ১০। এটি বাইনারি সংখ্যার প্রকৃত মান নয়, বরং এটি দশমিক সংখ্যার প্রকৃত মান নয়। কম্পিউটারে বাইনারি পদ্ধতিতে '১০১০' (1010) এর দশমিক মান হল ১০।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#2. [BnMMLU (Physics)] আলোর প্রতিসরণের ক্ষেত্রে স্নেলের সূত্র (Snell's Law) নিচের কোন গাণিতিক সম্পর্কটি প্রকাশ করে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+সন্নিহিত সূত্র Snell's Law (স্নেলের সূত্র), যা আলোর প্রতিসরণের সম্পর্ক বর্ণনা করে, হল $\frac{\text{sin} \angle i}{\text{sin} \angle r} = \mu$, যেখানে $\angle i$ হল আপতন কোণ, $\angle r$ হল প্রতিসরণ কোণ এবং $\mu$ হল মাধ্যমের সরল আলোর প্রতিসরণের মান।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>আলোর প্রতিসরণের ক্ষেত্রে স্নেলের সূত্র হল:
+
+**B)** আপতন কোণ ও প্রতিফলন কোণ সর্বদা সমান (∠i = ∠r)
+
+এই সূত্রটি আলোর আপতন কোণ ও প্রতিসরণ কোণের সাইন সমান হওয়ার জন্য প্রভাব রাখে।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#3. [BnMMLU (Biology & Chemistry)] উদ্ভিদ দেহে সালোকসংশ্লেষণ (Photosynthesis) প্রক্রিয়ার প্রধান উপজাত (By-product) কোনটি যা বায়ুমণ্ডলে নির্গত হয়?</div>
+      <div>Ground Truth: <strong>C</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উত্তর: C) অক্সিজেন গ্যাস
+
+এটি হল উদ্ভিদ দেহের সালোকসংশ্লেষণ প্রক্রিয়ার প্রধান উপজাত যা বায়ুমণ্ডলে নির্গত হয়। এটি হল অক্সিজেন গ্যাস যা আমাদের জীবনে কাজ করে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উদ্ভিদ দেহে সালোকসংশ্লেষণ (Photosynthesis) প্রক্রিয়ার প্রধান উপজাত হল অক্সিজেন গ্যাস। এটি উদ্ভিদের ফুল, ছোট ছোট গাছের পাতা, এবং অন্যান্য উদ্ভিদের দেহে উৎপন্ন হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#4. [BnMMLU (History of Bangladesh)] ১৯৭১ সালের মুক্তিযুদ্ধ চলাকালে গঠিত মুজিবনগর সরকারের অস্থায়ী রাষ্ট্রপতি কে ছিলেন?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>উত্তর: A
+
+বঙ্গবন্ধু শেখ মুজিবুর রহমান ছিলেন মুজিবনগর সরকারের অস্থায়ী রাষ্ট্রপতি।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>১৯৭১ সালের মুক্তিযুদ্ধ চলাকালে গঠিত মুজিবনগর সরকারের অস্থায়ী রাষ্ট্রপতি ছিলেন সৈয়দ নজরুল ইসলাম।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#5. [BnMMLU (Geography)] বাংলাদেশের একমাত্র পাহাড়ি দ্বীপ কোনটি?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+সংক্ষেপে ব্যাখ্যা: মহেশখালী নামক দ্বীপ বাংলাদেশের একমাত্র পাহাড়ি দ্বীপ।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>বাংলাদেশের একমাত্র পাহাড়ি দ্বীপ হল মহেশখালী। এটি ঢাকা জেলার একটি দ্বীপ যা পাহাড়ি গভীরতা ও সুন্দর প্রকৃতির জন্য বিখ্যাত।  এখানে প্রচুর পাহাড়, বন, নদী ও বিভিন্ন প্রজাতির প্রাণী ও উদ্ভিদের আবাস।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#6. [BnMMLU (Data Structures)] কম্পিউটার বিজ্ঞানে কোন ডেটা স্ট্রাকচারটি LIFO (Last In First Out) নীতি মেনে কাজ করে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+স্ট্যাক (Stack) ডেটা স্ট্রাকচারটি LIFO (Last In First Out) নীতিতে কাজ করে। এটি হল একটি স্ট্যাক থেকে একটি পদ প্রদর্শন ও সংরক্ষণ করে এবং একটি পদ বাতিল করে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+স্ট্যাক (Stack) হল একটি ডেটা স্ট্রাকচার যা LIFO (Last In First Out) নীতি মেনে কাজ করে। এখানে প্রথমে যে কোন ডেটা যোগ করা হয়, তাকে সবচেয়ে শেষে থেকে বিফল করা হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#7. [BnMMLU (Bangladesh Constitution)] গণপ্রজাতন্ত্রী বাংলাদেশের সংবিধানের অভিভাবক ও চূড়ান্ত ব্যাখ্যাকারক কোন প্রতিষ্ঠান?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>উত্তর: A
+
+বাংলাদেশ জাতীয় সংসদ সচিবালয় হল গণপ্রজাতন্ত্রী বাংলাদেশের সংবিধানের অভিভাবক ও চূড়ান্ত ব্যাখ্যাকারক প্রতিষ্ঠান।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>উত্তর: A) বাংলাদেশ জাতীয় সংসদ সচিবালয়  
+বাংলাদেশ জাতীয় সংসদ সচিবালয় হল গণপ্রজাতন্ত্রী বাংলাদেশের সর্বোচ্চ সংসদ। এটি সংবিধানের অনুসারে গণপ্রজাতন্ত্রী বাংলাদেশের সর্বোচ্চ সংসদ হিসেবে কাজ করে।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#8. [BnMMLU (Ecology & Forestry)] বিশ্বের সর্ববৃহৎ ম্যানগ্রোভ বন সুন্দরবনের আনুমানিক কত শতাংশ ভূমি বাংলাদেশ সীমানার মধ্যে অবস্থিত?</div>
+      <div>Ground Truth: <strong>C</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উত্তর: C
+
+প্রশ্নটি জবাহার করে নিশ্চিত করেছি যে সুন্দরবনের প্রায় ৬০% ভূমি বাংলাদেশ সীমানার মধ্যে অবস্থিত।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (B)</span>
+        </div>
+        <div>বিশ্বের সর্ববৃহৎ ম্যানগ্রোভ বন সুন্দরবনের আনুমানিক কত শতাংশ ভূমি বাংলাদেশ সীমানার মধ্যে অবস্থিত? 
+
+**উত্তর:**  
+B) প্রায় ৫০%  
+
+**স্পষ্ট বাংলায়:**</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#9. [BLUCK (বাগধারা / Idioms)] বাংলা বাগধারা 'ডুমুরের ফুল' বলতে প্রকৃত অর্থে কী বোঝায়?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>উত্তর: A)
+
+এই বাগধারাটি প্রকৃত অর্থে অত্যন্ত উজ্জ্বল ও দৃশ্যমান পুষ্প বোঝায়।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (None)</span>
+        </div>
+        <div>"ডুমুরের ফুল" হল বাংলা বাগধারার একটি প্রাচীন ও সুন্দর কাহিনী। এখানে "ডুমুর" হল এক ব্যক্তির নাম এবং "ফুল" হল তার জীবনের সুখ, আশা ও সৌন্দর্যের প্রতীক।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#10. [BLUCK (বাগধারা / Idioms)] 'আমড়া কাঠের ঢেঁকি' বাগধারাটির যথাযথ অর্থ নিচের কোনটি?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (C)</span>
+        </div>
+        <div>উত্তর: C) 
+
+"আমড়া কাঠের ঢেঁকি" বাগধারাটির যথাযথ অর্থ "অত্যন্ত কষ্টসহিষ্ণু মানুষ" হै। এটি বলে যে আমাদের মানুষ কাঠের ঢেঁকি তৈরি করতে প্রাথমিক কষ্ট পাওয়ার পরও তার কাজ করে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B  
+অপদার্থ বা অকেজো ব্যক্তি হল একটি বাঙালি বাগধারার যৌগিক অর্থ। এটি একটি অপরিচিত ব্যক্তি বা কারিগর হিসাবে ব্যবহৃত হয়। এটি কাঠের তৈরি প্রাচীন তৈজসপত্র বা অত্যন্ত কষ্টসহিষ্ণু মানুষ হিসাবে ব্যবহৃত হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#11. [BLUCK (প্রবাদ-প্রবচন / Proverbs)] 'নাচতে না জানলে উঠান বাঁকা' প্রবাদটির অন্তর্নিহিত নীতিকথা বা তাৎপর্য কী?</div>
+      <div>Ground Truth: <strong>C</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উত্তর: C
+
+নির্দেশনা অনুযায়ী নির্ভুল বাংলায় স্পষ্ট ব্যাখ্যা:
+
+এই প্রবাদের অন্তর্নিহিত নীতিকথা হল নিজের অযোগ্যতার বা ব্যর্থতার দোষ পরিস্থিতি বা পরিবেশে চাপানো।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (A)</span>
+        </div>
+        <div>"নাচতে না জানলে উঠান বাঁকা" প্রবাদটি নৃত্যের অনুশীলনের অভাব নির্দেশ করে। 
+
+এখানে "উঠান" নির্দেশ করে যে নৃত্যকলার পরিপন্থীদের অনুশীলন না করলে তাদের অসমতল ভূমি থেকে উঠতে পারে না।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#12. [BLUCK (বাংলা সাহিত্য / Tagore)] রবীন্দ্রনাথ ঠাকুর তাঁর কোন কাব্যগ্রন্থের ইংরেজি রূপান্তরের জন্য ১৯১৩ সালে এশিয়ার প্রথম ব্যক্তি হিসেবে সাহিত্যে নোবেল পুরস্কার লাভ করেন?</div>
+      <div>Ground Truth: <strong>C</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উত্তর: C) গীতাঞ্জলি (Song Offerings)
+
+স্পষ্ট ব্যাখ্যা: 1913 সালে রবীন্দ্রনাথ ঠাকুর তাঁর কবিতাগুলির ইংরেজি রূপান্তরের জন্য এশিয়ার প্রথম ব্যক্তি হিসেবে নোবেল পুরস্কার লাভ করেন।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (None)</span>
+        </div>
+        <div>প্রশ্নটি সম্পূর্ণ সঠিক উত্তর হওয়া যায় না, কারণ রবীন্দ্রনাথ ঠাকুর তাঁর কোন কাব্যগ্রন্থের ইংরেজি রূপান্তরের জন্য ১৯১৩ সালে এশিয়ার প্রথম ব্যক্তি হিসেবে সাহিত্যে নোবেল পুরস্কার লাভ করেন নি।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#13. [BLUCK (বাংলা সাহিত্য / Nazrul)] জাতীয় কবি কাজী নজরুল ইসলামের কালজয়ী 'বিদ্রোহী' কবিতাটি তাঁর কোন বিখ্যাত কাব্যগ্রন্থের অন্তর্গত?</div>
+      <div>Ground Truth: <strong>A</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (A)</span>
+        </div>
+        <div>উত্তর: A) অগ্নিবীণা
+
+অগ্নিবীণা কাজী নজরুল ইসলামের কালজয়ী 'বিদ্রোহী' কবিতাটি অধিকার হয়েছে এই কাব্যগ্রন্থে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (A)</span>
+        </div>
+        <div>প্রশ্নটি সম্পূর্ণ সঠিক উত্তর হওয়া যায় না, কারণ জাতীয় কবি কাজী নজরুল ইসলামের কালজয়ী 'বিদ্রোহী' কবিতা নিম্ন কাব্যগ্রন্থের অন্তর্গত ছিল:
+
+**অগ্নিবীণা**</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#14. [BLUCK (বাংলা সাহিত্য / Modern Poetry)] 'বাংলার মুখ আমি দেখিয়াছি, তাই আমি পৃথিবীর রূপ খুঁজিতে যাই না আর' — বিখ্যাত এই পঙ্‌ক্তিটির রচয়িতা কোন কবি?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (C)</span>
+        </div>
+        <div>উত্তর: C) সুকান্ত ভট্টাচার্য
+
+এই পঙ্ক্তি "বাংলার মুখ আমি দেখিয়াছি, তাই আমি পৃথিবীর রূপ খুঁজিতে যাই না আর" রচিত ছিল সুকান্ত ভট্টাচার্য।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>এই পঙ্ক্তির রচয়িতা ছিলেন জীবনানন্দ দাশ। তিনি বাংলা সাহিত্যের একজন বিখ্যাত কবি, গল্পকার, ও নাট্যকার।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#15. [BLUCK (বাংলা ব্যাকরণ / সন্ধি)] 'বিদ্যালয়' শব্দটির সঠিক ব্যাকরণসম্মত সন্ধি বিচ্ছেদ কোনটি?</div>
+      <div>Ground Truth: <strong>A</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (A)</span>
+        </div>
+        <div>উত্তর: A
+
+বিদ্যালয় শব্দটির সঠিক ব্যাকরণসম্মত সন্ধি হল "বিদ্যা + আলয়"। এটি একটি গঠনীয় সন্ধি যা একটি বিশেষ শব্দ বা শব্দগুলির মধ্যে একটি সন্ধি বিচ্ছেদ দ্বারা ঘটে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (A)</span>
+        </div>
+        <div>বিদ্যালয় শব্দটি সঠিক ব্যাকরণসম্মত সন্ধি হিসাবে A উত্তরের সাথে সম্পর্কিত। বিদ্যা শব্দটি বিষয়ের ও জ্ঞানের অর্থে ব্যবহৃত হয়, যখন আলয় শব্দটি শিক্ষার কেন্দ্রের অর্থে ব্যবহৃত হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#16. [BLUCK (বাংলা ব্যাকরণ / সমাস)] 'সিংহ চিহ্নিত আসন = সিংহাসন' — এটি কোন সমাসের যথাযথ উদাহরণ?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (C)</span>
+        </div>
+        <div>উত্তর: C) বহুব্রীহি সমাস
+
+বহুব্রীহি সমাস হল একটি সমাস যা দুই বা তার অধিক শব্দ থাকতে পারে। উদাহরণস্বরূপ "সিংহ চিহ্নিত আসন" এবং "সিংহাসন" এই সমাসের উদাহরণ।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B) মধ্যপদলোপী কর্মধারয় সমাস  
+সমাসটি সিংহ চিহ্নিত আসন এবং সিংহাসন এর মধ্যে সম্পর্ক থাকে। সিংহ চিহ্নিত আসন হলো কোনো স্থানের সৌন্দর্য ও গুরুত্বের প্রতীক।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#17. [BanglaMATH (লাভ-ক্ষতি ও শতকরা)] একটি বই ৪০ টাকায় ক্রয় করে ৫০ টাকায় বিক্রয় করা হলো। ব্যবসায় শতকরা কত লাভ হয়েছে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+শতকরা লাভ = [(বিক্রয়মূল্য - ক্রয়মূল্য) / ক্রয়মূল্য] * 100%
+= [(50 - 40) / 40] * 100%</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>এই বিষয়ে আমার সঠিক উত্তর হল:
+
+**উত্তর: B**
+
+**ব্যাখ্যা:**  
+ব্যবসায়ে ক্রয় ও বিক্রয়ের ব্যাজ হলো ব্যবসায়ের লাভ বা লাভ হওয়া পরিমাণ। এখানে ব্যবসায়ে ক্রয় ও বিক্রয়ের ব্যাজ হলো ৫০ টাকা - ৪০ টাকা = ১০ টাকা।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#18. [BanglaMATH (বয়স ও অনুপাত)] পিতা ও পুত্রের বর্তমান বয়সের অনুপাত ৫:২। পুত্রের বর্তমান বয়স ১৪ বছর হলে, পিতার বর্তমান বয়স কত বছর?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+পুত্রের বর্তমান বয়স 14 বছর এবং পিতার বর্তমান বয়স 35 বছর। এখানে ৫:২ বর্তমান বয়সের অনুপাত থাকে। যদি পুত্রের বর্তমান বয়স ১৪ বছর হয়, তাহলে পিতার বর্তমান বয়স ৩৫ বছর।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (None)</span>
+        </div>
+        <div>পুত্রের বর্তমান বয়স ১৪ বছর। পিতা ও পুত্রের বর্তমান বয়সের অনুপাত ৫:২। 
+
+এখন পিতার বর্তমান বয়স নির্ণয় করতে হলে, পিতার বয়স পুত্রের বয়সের অনুপাতে পুত্রের বয়স দিয়ে গুণ করে পাওয়া যায়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#19. [BanglaMATH (ঐকিক নিয়ম)] ৬ জন লোক একটি পুকুর খননের কাজ ১০ দিনে সম্পন্ন করতে পারে। ওই একই কাজ ৪ দিনে সম্পন্ন করতে কতজন লোকের প্রয়োজন হবে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-incorrect">FAIL (D)</span>
+        </div>
+        <div>উত্তর: D) ২০ জন
+
+এখানে ৬ জন লোক ১০ দিনে ১ কাজ করেছে, যা এক জন লোক ১০×৬=৬০ দিনে ১ কাজ করে। আবার, ৪ দিনে ১ কাজ করতে হলে, ৬০÷৪=১৫ দিনে ১ কাজ করে ২০ জন লোক প্রয়োজন.</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (D)</span>
+        </div>
+        <div>এই প্রশ্নের সমাধান হলো:
+
+**D) ২০ জন**
+
+**স্পষ্ট বাংলায়:**
+  
+একটি পুকুর খননের কাজ ১০ দিনে ৬ জন লোকের কাছে সম্পন্ন করতে পারে। এখন, একই কাজ ৪ দিনে সম্পন্ন করতে কতজন লোকের প্রয়োজন হবে? 
+
+**উত্তর:**</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#20. [BanglaMATH (জ্যামিতি ও পিথাগোরাস)] একটি সমকোণী ত্রিভুজের ভূমি ৪ সেন্টিমিটার এবং লম্ব ৩ সেন্টিমিটার। এর অতিভুজের দৈর্ঘ্য কত সেন্টিমিটার?</div>
+      <div>Ground Truth: <strong>A</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (A)</span>
+        </div>
+        <div>উত্তর: A) ৫ সেমি
+
+একটি সমকোণী ত্রিভুজের প্রদত্ত ভূমি ও লম্বের দৈর্ঘ্য হল 4 সেন্টিমিটার ও 3 সেন্টিমিটার যখন অতিভুজের দৈর্ঘ্য হল 5 সেন্টিমিটার। এটি সমান ত্রিভুজের গৌণ সম্পর্কের জন্য হলুম।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-incorrect">FAIL (None)</span>
+        </div>
+        <div>একটি সমকোণী ত্রিভুজের অতিভুজের দৈর্ঘ্য হল ভূমি ও লম্বের দৈর্ঘ্যের সমষ্টি। এখানে, ভূমি ৪ সেন্টিমিটার এবং লম্ব ৩ সেন্টিমিটার। অতিভুজের দৈর্ঘ্য = ৪ + ৩ = ৭ সেন্টিমিটার।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#21. [Reading Comprehension (মাতৃভাষা দিবস)] ইউনেস্কো কত সালের কত তারিখে ২১শে ফেব্রুয়ারিকে 'আন্তর্জাতিক মাতৃভাষা দিবস' হিসেবে ঐতিহাসিক স্বীকৃতি প্রদান করেছিল?</div>
+      <div>Ground Truth: <strong>C</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>উত্তর: C)
+
+সংক্ষেপে: ১৯৯৯ সালের ১৭ নভেম্বর</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (C)</span>
+        </div>
+        <div>১৯৯৯ সালের ১৭ নভেম্বর ইউনেস্কো ২১শে ফেব্রুয়ারিকে 'আন্তর্জাতিক মাতৃভাষা দিবস' হিসেবে ঐতিহাসিক স্বীকৃতি প্রদান করে। এটি সারা বিশ্বে ভাষাগত বৈচিত্র্য সংরক্ষণের প্রতীক হিসেবে উদযাপিত হয়।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#22. [Reading Comprehension (পদ্মা সেতু)] পদ্মা সেতুর মূল দৈর্ঘ্য কত কিলোমিটার এবং সেতুটি কোন দুই প্রান্তকে সরাসরি সংযুক্ত করেছে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B) 
+
+পদ্মা সেতুর মূল দৈর্ঘ্য ৬.১৫ কিলোমিটার এবং সেতুটি মাওয়া ও জাজিরা প্রান্তের দুই প্রান্তকে সরাসরি সংযুক্ত করেছে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>পদ্মা সেতুর মূল দৈর্ঘ্য ৬.১৫ কিলোমিটার এবং সেতুটি মাওয়া ও জাজিরা প্রান্তকে সরাসরি সংযুক্ত করেছে।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#23. [Reading Comprehension (মহাকাশ ও প্রযুক্তি)] বঙ্গবন্ধু স্যাটেলাইট-১ উৎক্ষেপণের মাধ্যমে বাংলাদেশ বিশ্বের কততম স্যাটেলাইট অধিকারী দেশ হিসেবে মর্যাদা অর্জন করে?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B
+
+বঙ্গবন্ধু স্যাটেলাইট-১ উৎক্ষেপণের মাধ্যমে বাংলাদেশ বিশ্বের ৫৭তম স্যাটেলাইট অধিকারী দেশ হিসেবে মর্যাদা অর্জন করেছে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>বঙ্গবন্ধু স্যাটেলাইট-১ উৎক্ষেপণের মাধ্যমে বাংলাদেশ বিশ্বের ৫৭তম স্যাটেলাইট অধিকারী দেশ হিসেবে মর্যাদা অর্জন করে।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-header bengali">
+      <div>#24. [Reading Comprehension (বাংলা লিপি ও বর্ণমালা)] বাংলা বর্ণমালায় মোট বর্ণের সংখ্যা কত এবং এর মধ্যে মাত্রাহীন বর্ণ কয়টি?</div>
+      <div>Ground Truth: <strong>B</strong></div>
+    </div>
+    <div class="qa-content bengali">
+      <div class="pane-base">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between;">
+          <span>Vanilla Qwen2.5-3B-Instruct:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>উত্তর: B) ৫০টি বর্ণ; ১০টি মাত্রাহীন
+
+এই অনুচ্ছেদ থেকে পাওয়া যায় যে বাংলা বর্ণমালায় মোট 50টি বর্ণ রয়েছে এবং এর মধ্যে মাত্রাহীন বর্ণ 10টি রয়েছে।</div>
+      </div>
+      <div class="pane-student">
+        <div style="font-weight: 700; margin-bottom: 3px; display: flex; justify-content: space-between; color: #15803d;">
+          <span>Distilled Qwen2.5-3B-Instruct Student:</span>
+          <span class="badge-correct">CORRECT (B)</span>
+        </div>
+        <div>বাংলা বর্ণমালায় মোট ৫০টি বর্ণ রয়েছে। এর মধ্যে স্বরবর্ণ ১১টি এবং ব্যঞ্জনবর্ণ ৩৯টি। মাত্রাভেদে বর্ণগুলোকে তিন ভাগে ভাগ করা হয়: পূর্ণমাত্রার বর্ণ ৩২টি, অর্ধমাত্রার বর্ণ ৮টি এবং মাত্রাহীন বর্ণ ১০টি।</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

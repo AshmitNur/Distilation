@@ -1,56 +1,56 @@
 {
-  "timestamp": "2026-10-12 19:04:59",
+  "timestamp": "2026-10-13 20:23:49",
   "hardware": "NVIDIA GeForce RTX 4070 Laptop GPU",
   "total_vram_gb": 7.99560546875,
-  "static_vram_mb": 975.8857421875,
-  "adapter_size_mb": 33.60472106933594,
-  "load_time_seconds": 3.8105032444000244,
+  "static_vram_mb": 2217.8974609375,
+  "adapter_size_mb": 114.25164031982422,
+  "load_time_seconds": 11.690403938293457,
   "ttft_results": [
     {
       "prompt_tokens": 16,
-      "ttft_ms": 90.42
+      "ttft_ms": 185.93
     },
     {
       "prompt_tokens": 64,
-      "ttft_ms": 100.73
+      "ttft_ms": 215.17
     },
     {
       "prompt_tokens": 128,
-      "ttft_ms": 83.71
+      "ttft_ms": 224.88
     },
     {
       "prompt_tokens": 256,
-      "ttft_ms": 78.48
+      "ttft_ms": 205.61
     }
   ],
   "throughput_results": [
     {
       "target_tokens": 32,
       "actual_tokens": 32,
-      "latency_seconds": 2.479,
-      "tokens_per_second": 12.9,
-      "peak_vram_mb": 992.4
+      "latency_seconds": 5.739,
+      "tokens_per_second": 5.6,
+      "peak_vram_mb": 2229.9
     },
     {
       "target_tokens": 64,
       "actual_tokens": 64,
-      "latency_seconds": 4.958,
-      "tokens_per_second": 12.9,
-      "peak_vram_mb": 992.8
+      "latency_seconds": 10.34,
+      "tokens_per_second": 6.2,
+      "peak_vram_mb": 2229.9
     },
     {
       "target_tokens": 128,
       "actual_tokens": 128,
-      "latency_seconds": 9.505,
-      "tokens_per_second": 13.5,
-      "peak_vram_mb": 993.6
+      "latency_seconds": 20.851,
+      "tokens_per_second": 6.1,
+      "peak_vram_mb": 2231.9
     },
     {
       "target_tokens": 256,
       "actual_tokens": 256,
-      "latency_seconds": 20.805,
-      "tokens_per_second": 12.3,
-      "peak_vram_mb": 995.1
+      "latency_seconds": 43.461,
+      "tokens_per_second": 5.9,
+      "peak_vram_mb": 2238.5
     }
   ],
   "teacher_specs": {
@@ -67,11 +67,11 @@
       "speed_tps": 23.5
     },
     "Bangla Distill Student": {
-      "params": "0.49B",
-      "weights_gb": 1.05,
-      "adapter_mb": 33.60472106933594,
-      "min_vram_fp16": 0.9530134201049805,
-      "speed_tps": 12.3
+      "params": "3.09B",
+      "weights_gb": 2.17,
+      "adapter_mb": 114.25164031982422,
+      "min_vram_fp16": 2.17,
+      "speed_tps": 5.9
     }
   }
 }

@@ -32,7 +32,6 @@ from pdf_generator import html_to_pdf
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
 
 def _resolve_model_dir(name: str) -> str:
     p1 = os.path.join(PROJECT_ROOT, "models", name)
@@ -41,13 +40,69 @@ def _resolve_model_dir(name: str) -> str:
     if os.path.exists(p2): return p2
     return p1
 
+_3B = _resolve_model_dir("bangla_distill_3b_adapter")
 _UNSLOTH = _resolve_model_dir("bangla_distill_unsloth_adapter")
-ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else _resolve_model_dir("final-lora-adapter-v2")
+_V2 = _resolve_model_dir("final-lora-adapter-v2")
+
+if os.path.exists(_3B):
+    ADAPTER_PATH = _3B
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+    USE_4BIT = True
+    MODEL_LABEL = "Qwen2.5-3B-Instruct"
+elif os.path.exists(_UNSLOTH):
+    ADAPTER_PATH = _UNSLOTH
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+else:
+    ADAPTER_PATH = _V2
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DTYPE = torch.float16 if DEVICE == "cuda" else torch.float32
+
+def clean_sentence_end(text: str) -> str:
+    text = text.strip()
+    if not text:
+        return text
+    if text[-1] in ("।", "?", "!", ".", "\n", '"', "”", "'", "’", ")"):
+        return text
+    terminators = ["।", "?", "!", "\n"]
+    last_idx = -1
+    for term in terminators:
+        idx = text.rfind(term)
+        if idx > last_idx:
+            last_idx = idx
+    if last_idx > 0 and (last_idx >= len(text) * 0.35):
+        return text[:last_idx + 1].strip()
+    return text
+
+def _load_base_lm():
+    if USE_4BIT and DEVICE == "cuda":
+        from transformers import BitsAndBytesConfig
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16
+        )
+        return AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            quantization_config=bnb_config,
+            device_map="cuda",
+            trust_remote_code=True
+        )
+    else:
+        return AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            torch_dtype=DTYPE,
+            device_map=DEVICE,
+            trust_remote_code=True
+        )
 
 TEST_DOMAINS = [
     {
@@ -160,18 +215,24 @@ def score_response(text, expected_topics, orth_stats):
 def run_suite():
     print("=" * 70)
     print("🇧🇩 BANGLA DISTILL — BENCHMARK SUITE 2: DOMAIN EMPIRICAL EVALUATION")
+    print(f"[*] Target Model Architecture: {MODEL_LABEL} ({'4-bit NF4' if USE_4BIT else 'FP16'})")
     print("=" * 70)
     
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_NAME, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(ADAPTER_PATH if os.path.exists(ADAPTER_PATH) else BASE_MODEL_NAME, trust_remote_code=True)
     
+    eos_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
+    if hasattr(tokenizer, "convert_tokens_to_ids"):
+        im_end = tokenizer.convert_tokens_to_ids("<|im_end|>")
+        if im_end is not None and im_end not in eos_ids:
+            eos_ids.append(im_end)
+        eot = tokenizer.convert_tokens_to_ids("<|endoftext|>")
+        if eot is not None and eot not in eos_ids:
+            eos_ids.append(eot)
+    eos_arg = eos_ids if len(eos_ids) > 1 else (eos_ids[0] if eos_ids else None)
+
     # 1. Evaluate Baseline Model
-    print("\n[Phase 1/2] Generating completions: Vanilla Qwen2.5-0.5B-Instruct...")
-    base_model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=DTYPE,
-        device_map=DEVICE,
-        trust_remote_code=True
-    )
+    print(f"\n[Phase 1/2] Generating completions: Vanilla {MODEL_LABEL}...")
+    base_model = _load_base_lm()
     base_model.eval()
     
     base_results = []
@@ -188,16 +249,18 @@ def run_suite():
         with torch.no_grad():
             outputs = base_model.generate(
                 **inputs,
-                max_new_tokens=180,
+                max_new_tokens=280,
                 temperature=0.3,
                 top_p=0.9,
                 repetition_penalty=1.1,
-                pad_token_id=tokenizer.eos_token_id
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=eos_arg
             )
         elapsed = time.time() - t0
         
         gen_tokens = outputs[0][inputs["input_ids"].shape[1]:]
         gen_text = tokenizer.decode(gen_tokens, skip_special_tokens=True).strip()
+        gen_text = clean_sentence_end(gen_text)
         
         orth = evaluate_orthography_and_repetition(gen_text)
         scores = score_response(gen_text, test_case["expected_topics"], orth)
@@ -216,13 +279,8 @@ def run_suite():
         torch.cuda.empty_cache()
 
     # 2. Evaluate Distilled Student Model
-    print("\n[Phase 2/2] Generating completions: Bangla Distill Student (LoRA v2)...")
-    student_base = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=DTYPE,
-        device_map=DEVICE,
-        trust_remote_code=True
-    )
+    print(f"\n[Phase 2/2] Generating completions: Bangla Distill {MODEL_LABEL} Student...")
+    student_base = _load_base_lm()
     student_model = PeftModel.from_pretrained(student_base, ADAPTER_PATH)
     student_model.eval()
     
@@ -240,16 +298,18 @@ def run_suite():
         with torch.no_grad():
             outputs = student_model.generate(
                 **inputs,
-                max_new_tokens=180,
+                max_new_tokens=280,
                 temperature=0.3,
                 top_p=0.9,
                 repetition_penalty=1.1,
-                pad_token_id=tokenizer.eos_token_id
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=eos_arg
             )
         elapsed = time.time() - t0
         
         gen_tokens = outputs[0][inputs["input_ids"].shape[1]:]
         gen_text = tokenizer.decode(gen_tokens, skip_special_tokens=True).strip()
+        gen_text = clean_sentence_end(gen_text)
         
         orth = evaluate_orthography_and_repetition(gen_text)
         scores = score_response(gen_text, test_case["expected_topics"], orth)

@@ -34,8 +34,6 @@ from pdf_generator import html_to_pdf
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl") if os.path.exists(os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl")) else os.path.join(PROJECT_ROOT, "val_chat.jsonl")
-BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
 
 def _resolve_model_dir(name: str) -> str:
     p1 = os.path.join(PROJECT_ROOT, "models", name)
@@ -44,13 +42,50 @@ def _resolve_model_dir(name: str) -> str:
     if os.path.exists(p2): return p2
     return p1
 
+_3B = _resolve_model_dir("bangla_distill_3b_adapter")
 _UNSLOTH = _resolve_model_dir("bangla_distill_unsloth_adapter")
-ADAPTER_PATH = _UNSLOTH if os.path.exists(_UNSLOTH) else _resolve_model_dir("final-lora-adapter-v2")
+_V2 = _resolve_model_dir("final-lora-adapter-v2")
+
+if os.path.exists(_3B):
+    ADAPTER_PATH = _3B
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+    USE_4BIT = True
+    MODEL_LABEL = "Qwen2.5-3B-Instruct"
+    VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "val_chat_3b.jsonl") if os.path.exists(os.path.join(PROJECT_ROOT, "data", "val_chat_3b.jsonl")) else os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl")
+elif os.path.exists(_UNSLOTH):
+    ADAPTER_PATH = _UNSLOTH
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+    VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl")
+else:
+    ADAPTER_PATH = _V2
+    BASE_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    USE_4BIT = False
+    MODEL_LABEL = "Qwen2.5-0.5B-Instruct"
+    VAL_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "val_chat.jsonl")
+
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DTYPE = torch.float16 if DEVICE == "cuda" else torch.float32
+
+def clean_sentence_end(text: str) -> str:
+    text = text.strip()
+    if not text:
+        return text
+    if text[-1] in ("।", "?", "!", ".", "\n", '"', "”", "'", "’", ")"):
+        return text
+    terminators = ["।", "?", "!", "\n"]
+    last_idx = -1
+    for term in terminators:
+        idx = text.rfind(term)
+        if idx > last_idx:
+            last_idx = idx
+    if last_idx > 0 and (last_idx >= len(text) * 0.35):
+        return text[:last_idx + 1].strip()
+    return text
 
 def compute_ppl_and_loss(model, tokenizer, dataset_samples, max_samples=40):
     """
@@ -127,14 +162,24 @@ def generate_and_evaluate(model, tokenizer, dataset_samples, num_samples=30):
             torch.cuda.synchronize()
         t0 = time.time()
         
+        eos_ids = [tokenizer.eos_token_id] if tokenizer.eos_token_id is not None else []
+        if hasattr(tokenizer, "convert_tokens_to_ids"):
+            im_end = tokenizer.convert_tokens_to_ids("<|im_end|>")
+            if im_end is not None and im_end not in eos_ids:
+                eos_ids.append(im_end)
+            eot = tokenizer.convert_tokens_to_ids("<|endoftext|>")
+            if eot is not None and eot not in eos_ids:
+                eos_ids.append(eot)
+
         with torch.no_grad():
             outputs = model.generate(
                 **inputs,
-                max_new_tokens=160,
+                max_new_tokens=256,
                 temperature=0.3,
                 top_p=0.9,
                 repetition_penalty=1.1,
-                pad_token_id=tokenizer.eos_token_id
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=eos_ids if len(eos_ids) > 1 else (eos_ids[0] if eos_ids else None)
             )
             
         if torch.cuda.is_available():
@@ -143,6 +188,7 @@ def generate_and_evaluate(model, tokenizer, dataset_samples, num_samples=30):
         
         gen_tokens = outputs[0][inputs["input_ids"].shape[1]:]
         pred_text = tokenizer.decode(gen_tokens, skip_special_tokens=True).strip()
+        pred_text = clean_sentence_end(pred_text)
         
         total_time += elapsed
         total_tokens += len(gen_tokens)
@@ -183,9 +229,32 @@ def generate_and_evaluate(model, tokenizer, dataset_samples, num_samples=30):
         "samples": sample_pairs
     }
 
+def _load_base_lm():
+    if USE_4BIT and DEVICE == "cuda":
+        from transformers import BitsAndBytesConfig
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16
+        )
+        return AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            quantization_config=bnb_config,
+            device_map="cuda",
+            trust_remote_code=True
+        )
+    else:
+        return AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL_NAME,
+            torch_dtype=DTYPE,
+            device_map=DEVICE,
+            trust_remote_code=True
+        )
+
 def run_suite():
     print("=" * 70)
     print("🇧🇩 BANGLA DISTILL — BENCHMARK SUITE 1: QUANTITATIVE NLG")
+    print(f"[*] Target Model Architecture: {MODEL_LABEL} ({'4-bit NF4' if USE_4BIT else 'FP16'})")
     print("=" * 70)
     
     # 1. Load Validation Data
@@ -196,22 +265,17 @@ def run_suite():
             dataset_samples.append(json.loads(line))
     print(f"    Loaded {len(dataset_samples)} total validation records.")
     
-    NUM_PPL_SAMPLES = 50
-    NUM_GEN_SAMPLES = 25
+    NUM_PPL_SAMPLES = 40
+    NUM_GEN_SAMPLES = 20
     print(f"[*] Evaluation sample sizes: {NUM_PPL_SAMPLES} samples for PPL/Loss, {NUM_GEN_SAMPLES} samples for ROUGE/chrF++.")
     
     # 2. Benchmark Vanilla Base Model
-    print("\n[Phase 1/2] Benchmarking Baseline: Vanilla Qwen2.5-0.5B-Instruct...")
+    print(f"\n[Phase 1/2] Benchmarking Baseline: Vanilla {MODEL_LABEL}...")
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
         
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_NAME, trust_remote_code=True)
-    base_model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=DTYPE,
-        device_map=DEVICE,
-        trust_remote_code=True
-    )
+    tokenizer = AutoTokenizer.from_pretrained(ADAPTER_PATH if os.path.exists(ADAPTER_PATH) else BASE_MODEL_NAME, trust_remote_code=True)
+    base_model = _load_base_lm()
     base_model.eval()
     
     base_vram = torch.cuda.max_memory_allocated() / (1024**2) if torch.cuda.is_available() else 0
@@ -231,13 +295,8 @@ def run_suite():
         torch.cuda.reset_peak_memory_stats()
         
     # 3. Benchmark Distilled Student Model
-    print("\n[Phase 2/2] Benchmarking Proposed: Distilled Student (LoRA v2)...")
-    student_base = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_NAME,
-        torch_dtype=DTYPE,
-        device_map=DEVICE,
-        trust_remote_code=True
-    )
+    print(f"\n[Phase 2/2] Benchmarking Proposed: Bangla Distill {MODEL_LABEL} Student...")
+    student_base = _load_base_lm()
     student_model = PeftModel.from_pretrained(student_base, ADAPTER_PATH)
     student_model.eval()
     
@@ -259,7 +318,7 @@ def run_suite():
         "sample_size_ppl": NUM_PPL_SAMPLES,
         "sample_size_gen": NUM_GEN_SAMPLES,
         "base_model": {
-            "name": "Vanilla Qwen2.5-0.5B-Instruct",
+            "name": f"Vanilla {MODEL_LABEL}",
             "loss": base_loss,
             "ppl": base_ppl,
             "rouge1": base_gen_stats["rouge1"],
@@ -273,7 +332,7 @@ def run_suite():
             "samples": base_gen_stats["samples"]
         },
         "student_model": {
-            "name": "Bangla Distill Student (LoRA v2)",
+            "name": f"Bangla Distill {MODEL_LABEL} Student",
             "loss": student_loss,
             "ppl": student_ppl,
             "rouge1": student_gen_stats["rouge1"],
@@ -298,6 +357,7 @@ def run_suite():
     ppl_reduction = ((base_ppl - student_ppl) / base_ppl) * 100 if base_ppl > 0 else 0
     chrf_gain = student_gen_stats["chrf"] - base_gen_stats["chrf"]
     rougeL_gain = student_gen_stats["rougeL"] - base_gen_stats["rougeL"]
+    param_str = "3.09B" if "3B" in MODEL_LABEL else "490M"
     
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -522,8 +582,8 @@ def run_suite():
     </thead>
     <tbody>
       <tr>
-        <td><span class="tag-base">Vanilla Qwen2.5-0.5B</span></td>
-        <td>490M</td>
+        <td><span class="tag-base">Vanilla {MODEL_LABEL}</span></td>
+        <td>{param_str}</td>
         <td>{base_loss:.4f}</td>
         <td>{base_ppl:.2f}</td>
         <td>{base_gen_stats["chrf"]:.2f}</td>
@@ -534,8 +594,8 @@ def run_suite():
         <td>{base_gen_stats["latency_ms"]:.1f} ms</td>
       </tr>
       <tr>
-        <td><span class="tag-student">Bangla Distill Student (LoRA v2)</span></td>
-        <td><strong>490M</strong></td>
+        <td><span class="tag-student">Bangla Distill {MODEL_LABEL} Student</span></td>
+        <td><strong>{param_str}</strong></td>
         <td><strong>{student_loss:.4f}</strong></td>
         <td><strong>{student_ppl:.2f}</strong></td>
         <td><strong>{student_gen_stats["chrf"]:.2f}</strong></td>

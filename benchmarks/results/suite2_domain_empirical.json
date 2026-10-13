@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-13 02:19:50",
+  "timestamp": "2026-10-13 20:22:09",
   "base_results": [
     {
       "test_case": {
@@ -16,14 +16,14 @@
           "শহীদ"
         ]
       },
-      "generated_text": "এই জগতে আমরা বাংলাদেশের ইতিহাসের অধিকাংশ এবং মহান মুক্তিযুদ্ধের প্রথম গণ্ড প্রকাশ করি।\n\n১৯৭১ সালের মহান মুক্তিযুদ্ধের প্রথম গণ্ড হয়েছিল। এটি একটি মহান মুক্তিযুদ্ধের মধ্�",
-      "elapsed_seconds": 8.05,
-      "tokens_generated": 180,
+      "generated_text": "বাংলাদেশের ইতিহাস আরও জটিল এবং অনেক গভীর, তাই আমি এই ছোট টেক্সট থেকه একটি শীর্ষক ঘটনা বলে বলছি: \n\n১৯৭১ সালের মহান মুক্তিযুদ্ধ বাংলাদেশের ইতিহাসের একটি প্রধান ঘটনা। এই যুদ্ধটি বাঙালি মুক্তিলাভের প্রথম ঘটনা ছিল।",
+      "elapsed_seconds": 25.58,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 76.0,
+        "unique_ngram_ratio": 88.23529411764706,
         "has_broken_glyphs": false,
-        "word_count": 25
+        "word_count": 34
       },
       "scores": {
         "fluency": 4.2,
@@ -52,20 +52,20 @@
           "ডেটা"
         ]
       },
-      "generated_text": "কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence, AI) হল একটি অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে। এটি একটি ব্যবহারকারী ও ব্যবহারকারী সাথে চাইতেছে, যা এই অ্যালগ্রামিং এবং গোড়ামের ফলে চাইতেছে।\n\nAI �",
-      "elapsed_seconds": 7.13,
-      "tokens_generated": 180,
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা হল একটি ইউরোপীয় শব্দ, যা আমাদের মind ও বুদ্ধিমত্তার অর্থ লইয়েছে। কিছু গণ্য বিষয়গুলি হল:\n\n1. **অর্থ**: কৃত্রিম বুদ্ধিমত্তা হল একটি ইমেডিয়াট মেশিন কৌশল, যা মানুষের বুদ্ধিমত্তা এবং মনোবুদ্ধিমত্তার সাথে সম্পর্কিত।\n\n2. **কাজ**:",
+      "elapsed_seconds": 24.6,
+      "tokens_generated": 280,
       "orthography_stats": {
-        "bengali_char_ratio": 83.85093167701864,
-        "unique_ngram_ratio": 75.0,
+        "bengali_char_ratio": 98.42931937172776,
+        "unique_ngram_ratio": 82.85714285714286,
         "has_broken_glyphs": false,
-        "word_count": 28
+        "word_count": 35
       },
       "scores": {
         "fluency": 4.2,
-        "orthography": 3.5,
+        "orthography": 4.9,
         "factuality": 1.7,
-        "overall": 3.0,
+        "overall": 3.4,
         "matched_topics": [
           "কৃত্রিম বুদ্ধিমত্তা"
         ]
@@ -86,21 +86,22 @@
           "প্রকৃতি"
         ]
       },
-      "generated_text": "এই আমি একটি বাংলা শিল্পের অনুষ্ঠানে চাই। আমি একটি বাংলা শিল্পের মধ্যে আপনি একটি সম্পূর্ণ জীবনের প্রশ্ন থেকে একটি বিশেষ প্রয়োজনীয় সাহায্য করতে পারি। আমি আপনি একটি বাংলা শিল",
-      "elapsed_seconds": 7.05,
-      "tokens_generated": 180,
+      "generated_text": "সুন্দরবন আমাদের জাতীয় পরিবেশের একটি মৌলিক অংশ হিসেবে বিবেচিত হযdbnameো। এই পরিবেশটি শান্তিচ্ছদ্ধ, প্রাণীর পরিবেশ ও পরিবেশ নির্বাচনে এবং পরিবেশ সৃষ্টির ক্ষেত্রে বিশ্বাসযোগ্য পরিবেশ নির্বাচনে বিশ্বাসযোগ্য পরিবেশ নির্বাচনে বিশ্বাসযোগ্য অন্যান্য পরিবেশ নির্বাচনের মধ্যে একটি ম",
+      "elapsed_seconds": 25.16,
+      "tokens_generated": 280,
       "orthography_stats": {
-        "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 65.51724137931035,
+        "bengali_char_ratio": 97.46835443037975,
+        "unique_ngram_ratio": 71.42857142857143,
         "has_broken_glyphs": false,
-        "word_count": 29
+        "word_count": 35
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 1.7,
-        "overall": 3.4,
+        "factuality": 2.3,
+        "overall": 3.6,
         "matched_topics": [
+          "সুন্দরবন",
           "বন"
         ]
       }
@@ -120,21 +121,22 @@
           "নিয়মানুবর্তিতা"
         ]
       },
-      "generated_text": "1. আপনার প্রয়োজনীয় সুস্থ শরীর: আপনার সুস্থ শরীর হল আপনার সুস্থ শরীর এবং আপনার সুস্থ শরীর ছিলেন।\n\n2. পড়াশোনায় মনোযোগ: পড়াশোনায় মনোযোগ হল আপনার সুস্থ শর�",
-      "elapsed_seconds": 7.29,
-      "tokens_generated": 180,
+      "generated_text": "শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য, আরও অত্যন্ত প্রয়োজনীয় নিয়ম হলো:\n\n1. **দৈনিক খাওয়া-পить**:\n   - আমাদের ঘরে ঘরে খাওয়া-পить নিয়ম রাখুন। বৃষ্টিকে পানি খাওয়ানো, ফসল খাওয়ানো (যেমন: গেরিলা, চাইবুকি, ডাল), পানি খাওয়ানো (যেমন: পানি, মাছ পানি)।",
+      "elapsed_seconds": 25.7,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 53.84615384615385,
+        "unique_ngram_ratio": 86.8421052631579,
         "has_broken_glyphs": false,
-        "word_count": 26
+        "word_count": 38
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 1.7,
-        "overall": 3.4,
+        "factuality": 2.3,
+        "overall": 3.6,
         "matched_topics": [
+          "শিক্ষার্থী",
           "মনোযোগ"
         ]
       }
@@ -154,22 +156,23 @@
           "সাহিত্য"
         ]
       },
-      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ (1826-1904) একটি মহাসাগর ও জয়নামৃত ছিল। তিনি চারটি বাংলা সাহিত্যের অবদান এবং সাধারণ সাহিত্যের অবদানগুলি দেখা যায়।\n\n1. সাহিত্য: রবীন্দ্রনাথ একটি মহাসাগর �",
-      "elapsed_seconds": 7.43,
-      "tokens_generated": 180,
+      "generated_text": "রবীন্দ্রনাথ ঠাকুর বাঙালি ভাষায় গল্প, চিত্র, ছবি ও ভিটার মধ্যে জনপ্রিয情人ের প্রধান ব্যক্তিত্ব ছিলেন। তাঁর অবদান এবং তাঁর কাজ বাংলা সাহিত্যে অতি প্রভাবশальা ছিল।\n\nরবীন্ধ বাংলা ভাষায় বই ও গল্প প্রকাশনের প্রথম পরিচালিকা করেন।",
+      "elapsed_seconds": 25.02,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 84.0,
+        "unique_ngram_ratio": 88.23529411764706,
         "has_broken_glyphs": false,
-        "word_count": 25
+        "word_count": 34
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 2.3,
-        "overall": 3.6,
+        "factuality": 3.0,
+        "overall": 3.9,
         "matched_topics": [
           "রবীন্দ্রনাথ",
+          "ঠাকুর",
           "সাহিত্য"
         ]
       }
@@ -191,22 +194,21 @@
           "শহীদ"
         ]
       },
-      "generated_text": "বাংলাদেশের ইতিহাস ও মহান মুক্তিযুদ্ধ বাংলাদেশের অধিকাংশ আইন-অর্থনৈতিক গ্রন্থগুলোর মধ্যে একটি অঙ্গরাজ্য ছিল। এটি বাংলাদেশের সবচেয়ে শুধুমাত্র স্বাধীনতা প্রবাহ করেছিল, বরং �",
-      "elapsed_seconds": 13.72,
-      "tokens_generated": 180,
+      "generated_text": "বাংলাদেশের ইতিহাস অনুযায়ী, আধুনিক বাংলাদেশের জন্ম ১৯৫২ সালের ৩০ই মে ঘটেছিল। এটি পাকিস্তানের স্বাধীনতা যুদ্ধের পরে ঘটেছিল। পাকিস্তান সরকার বাংলাদেশের অধীনস্থ ছিল এবং এটি পাকিস্তানের স্বাধীনতা যুদ্ধের পরে ঘটেছিল।",
+      "elapsed_seconds": 50.63,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 90.9090909090909,
+        "unique_ngram_ratio": 68.96551724137932,
         "has_broken_glyphs": false,
-        "word_count": 22
+        "word_count": 29
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 3.0,
-        "overall": 3.9,
+        "factuality": 2.3,
+        "overall": 3.6,
         "matched_topics": [
-          "মুক্তিযুদ্ধ",
           "স্বাধীনতা",
           "বাংলাদেশ"
         ]
@@ -227,22 +229,24 @@
           "ডেটা"
         ]
       },
-      "generated_text": "কৃত্রিম বুদ্ধিমত্তা, বা অ্যালগ্রাফিক্স হলো একটি গণিতীয় বিশ্ববিদ্যালয় যা ১৯৩৩ সালে প্রচলিত হয়েছিল। এই বিশ্ববিদ্যালয়টি বিশ্বের সবচেয়ে বড় ও সম্পূর্ণ বিশ্ববিদ্যালয",
-      "elapsed_seconds": 15.45,
-      "tokens_generated": 180,
+      "generated_text": "কৃত্রিম বুদ্ধিমত্তা, হলো গণনা ও অনুমানের ব্যবহারের মাধ্যমে মানুষের মতো চিন্তা-চেতনা লাভ করা যায়।  এটি ডেটা ব্যবহার করে সমস্যার সমাধান, টেলিফোন বিজ্ঞান, ইলেকট্রনিক্স, কম্পিউটার বিজ্ঞান, এবং অন্যান্য ক্ষেত্রে ব্যবহৃত হয়।",
+      "elapsed_seconds": 53.03,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 100.0,
+        "unique_ngram_ratio": 96.66666666666667,
         "has_broken_glyphs": false,
-        "word_count": 21
+        "word_count": 30
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 1.7,
-        "overall": 3.4,
+        "factuality": 3.0,
+        "overall": 3.9,
         "matched_topics": [
-          "কৃত্রিম বুদ্ধিমত্তা"
+          "কৃত্রিম বুদ্ধিমত্তা",
+          "কম্পিউটার",
+          "ডেটা"
         ]
       }
     },
@@ -261,14 +265,14 @@
           "প্রকৃতি"
         ]
       },
-      "generated_text": "সুন্দরবনের পরিবেশগত গুরুত্ব হল সম্পূর্ণ শৈলীর অধ্যায়, মৌখিক ও আন্তর্জাতিক সুন্দরবনের পরিচালনা, সম্পূর্ণ শৈলীর প্রতিফলন এবং সম্পূর্ণ শৈলীর প্রতিফলনের স্থান স্থাপন ক",
-      "elapsed_seconds": 15.93,
-      "tokens_generated": 180,
+      "generated_text": "সুন্দরবন, বাংলার অন্যতম জনপ্রিয় পর্যটন কেন্দ্র,  একটি বিশাল প্রাকৃতিক সম্পদের আবাহন।  এখানে প্রচুর প্রাণী ও ফুলের স্থান রয়েছে, যার মধ্যে রয়েছে বিভিন্ন ধরণের পাখি, চিকু, পাখি, এবং বিভিন্ন প্রজাতির প্রাণী।",
+      "elapsed_seconds": 46.97,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 77.27272727272727,
+        "unique_ngram_ratio": 93.33333333333333,
         "has_broken_glyphs": false,
-        "word_count": 22
+        "word_count": 30
       },
       "scores": {
         "fluency": 4.2,
@@ -296,14 +300,14 @@
           "নিয়মানুবর্তিতা"
         ]
       },
-      "generated_text": "শিক্ষার্থীর সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য আধুনিক ইতিহাসে একটি গুরুত্বপূর্ণ ঘটনা ছিল বাংলাদেশের প্রথম বিখ্যাত শিক্ষার্থী শৈলী। ১৯৫৩ সালে শিক্ষার্থী",
-      "elapsed_seconds": 14.55,
-      "tokens_generated": 180,
+      "generated_text": "শিক্ষার্থীদের সুস্থ শরীর ও পড়াশোনায় মনোযোগী থাকার জন্য নিচে তিনটি অত্যন্ত প্রয়োজনীয় নিয়ম উল্লেখ করা হলো:\n\n---\n\n**1. **  \nশিক্ষার্থীরা সময়ের সময় খুবই সম্পূর্ণ আচরণ করে থাকতে হবে।",
+      "elapsed_seconds": 46.1,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 95.45454545454545,
+        "unique_ngram_ratio": 100.0,
         "has_broken_glyphs": false,
-        "word_count": 22
+        "word_count": 28
       },
       "scores": {
         "fluency": 4.2,
@@ -331,35 +335,36 @@
           "সাহিত্য"
         ]
       },
-      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর (১৩ জুন ১৮৫৩ – ১৩ জুন ১৮৯২) ছিলেন ইতালীয় গণিতবিদ, চিত্রকর, ও সঙ্গীতকার। তিনি প্রাচীন ইতালীয় গণিতের অধ্যাপক ছিলেন। তাঁর গবেষণা গণিতে",
-      "elapsed_seconds": 15.73,
-      "tokens_generated": 180,
+      "generated_text": "বিশ্বকবি রবীন্দ্রনাথ ঠাকুর ছিলেন একজন বিখ্যাত বাঙালি কবি, গল্পকার, নাট্যকার ও সমাজসেবক। তিনি  \"গীতের মধ্যে পড়া\" এবং \"অমর\"  সমৃদ্ধ কবিতাগ্রন্থের জন্য বিখ্যাত। \n\nতার কবিতা, গল্প ও নাটকের মধ্যে সরলতা, স্পষ্টতা এবং মানব জীবনের বিভিন্ন দিকের চিত্রণ দেখা যায়।",
+      "elapsed_seconds": 46.7,
+      "tokens_generated": 280,
       "orthography_stats": {
         "bengali_char_ratio": 100.0,
-        "unique_ngram_ratio": 92.0,
+        "unique_ngram_ratio": 92.10526315789474,
         "has_broken_glyphs": false,
-        "word_count": 25
+        "word_count": 38
       },
       "scores": {
         "fluency": 4.2,
         "orthography": 4.9,
-        "factuality": 2.3,
-        "overall": 3.6,
+        "factuality": 3.0,
+        "overall": 3.9,
         "matched_topics": [
           "রবীন্দ্রনাথ",
-          "ঠাকুর"
+          "ঠাকুর",
+          "কবিতা"
         ]
       }
     }
   ],
   "averages": {
-    "base_overall": 3.46,
-    "student_overall": 3.62,
+    "base_overall": 3.6799999999999997,
+    "student_overall": 3.7199999999999998,
     "base_fluency": 4.2,
     "student_fluency": 4.2,
-    "base_orthography": 4.62,
+    "base_orthography": 4.9,
     "student_orthography": 4.9,
-    "base_factuality": 2.0799999999999996,
-    "student_factuality": 2.3200000000000003
+    "base_factuality": 2.46,
+    "student_factuality": 2.5799999999999996
   }
 }
